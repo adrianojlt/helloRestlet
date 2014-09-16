@@ -1,0 +1,5 @@
+/bin
+*.class
+/img/*.db
+/.classpath
+/target
