@@ -1,4 +1,4 @@
-package pt.adrz.hellrestlet.application;
+package pt.adrz.hellorestlet.application;
 
 import org.restlet.Request;
 import org.restlet.Response;

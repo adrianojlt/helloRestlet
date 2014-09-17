@@ -1,4 +1,4 @@
-package pt.adrz.hellrestlet.main;
+package pt.adrz.hellorestlet.main;
 
 
 public class Main {
@@ -12,6 +12,7 @@ public class Main {
 		//example.mailApp();
 		//example.helloWorld();
 		example.simplePageApp();
+		//example.tmpComponent();
 	}
 	
 	public static void tmp() {
