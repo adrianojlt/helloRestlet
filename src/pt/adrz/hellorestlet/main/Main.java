@@ -1,5 +1,6 @@
 package pt.adrz.hellorestlet.main;
 
+import org.restlet.resource.ClientResource;
 
 public class Main {
 	
@@ -11,8 +12,16 @@ public class Main {
 		
 		//example.mailApp();
 		//example.helloWorld();
-		example.simplePageApp();
+		//example.simplePageApp();
 		//example.tmpComponent();
+		example.tmpApp();
+		//example.serverResource();
+		//standAloneClient();
+	}
+	
+	public static void standAloneClient() throws Exception {
+		ClientResource client = new ClientResource("http://www.google.com/");
+		client.get().write(System.out);
 	}
 	
 	public static void tmp() {

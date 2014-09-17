@@ -10,6 +10,7 @@ import pt.adrz.hellorestlet.application.MailServerApplication;
 import pt.adrz.hellorestlet.application.SimplePageApplication;
 import pt.adrz.hellorestlet.application.TmpApplication;
 import pt.adrz.hellorestlet.component.TmpComponent;
+import pt.adrz.hellorestlet.resource.FirstServerResource;
 
 
 public class Example {
@@ -23,6 +24,11 @@ public class Example {
 	public void tmpComponent() throws Exception {
 		Component cmp = new TmpComponent();
 		cmp.start();
+	}
+	
+	public void serverResource() throws Exception{
+		this.server.setNext(FirstServerResource.class);
+		this.server.start();
 	}
 	
 	public void tmpApp() throws Exception {
