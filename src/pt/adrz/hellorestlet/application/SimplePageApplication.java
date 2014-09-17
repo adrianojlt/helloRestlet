@@ -1,4 +1,4 @@
-package pt.adrz.hellrestlet.application;
+package pt.adrz.hellorestlet.application;
 
 
 //import org.apache.catalina.connector.Request;
@@ -21,8 +21,7 @@ public class SimplePageApplication extends Application {
 		super(parentContext);
 	}
 	
-	@Override
-	public Restlet createInboundRoot() {
+	public Restlet createInbountRoot() {
 		
 		Router router = new Router(getContext());
 
@@ -57,7 +56,7 @@ public class SimplePageApplication extends Application {
 		};
 		
 		return mainPage;
-		//router.attach("", mainPage);
+		//router.attach("/hello", mainPage);
 		//return router;
 	}
 }
