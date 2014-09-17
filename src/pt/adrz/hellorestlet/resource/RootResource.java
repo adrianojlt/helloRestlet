@@ -1,7 +1,9 @@
 package pt.adrz.hellorestlet.resource;
 
+import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
+import org.restlet.resource.Get;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
@@ -14,6 +16,13 @@ public class RootResource extends ServerResource{
     public RootResource() {
         setNegotiated(false);
         // setExisting(false);
+    }
+    
+    @Get
+    public Representation represent() {
+		Representation representation = new StringRepresentation("hello mail",MediaType.TEXT_PLAIN);
+		return representation;
+        //return "hello, world";
     }
 
     @Override

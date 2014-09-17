@@ -6,17 +6,22 @@ public class Main {
 	
 	public Main() { }
 
-	public static void main(String[] args) throws Exception { 
+	public static void main(String[] args) { 
 		
 		Example example = new Example();
 		
-		//example.mailApp();
-		//example.helloWorld();
-		//example.simplePageApp();
-		//example.tmpComponent();
-		example.tmpApp();
-		//example.serverResource();
-		//standAloneClient();
+		try {
+			example.mailApp();
+			//example.helloWorld();
+			//example.simplePageApp();
+			//example.tmpComponent();
+			//example.tmpApp();
+			//example.serverResource();
+			//standAloneClient();
+		}
+		catch (Exception e) {
+			
+		}
 	}
 	
 	public static void standAloneClient() throws Exception {

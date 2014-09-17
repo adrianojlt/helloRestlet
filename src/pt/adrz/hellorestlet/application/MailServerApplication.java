@@ -16,12 +16,11 @@ public class MailServerApplication extends Application {
 	}
 	
 	@Override
-	public Restlet createInboundRoot() {
+	public synchronized Restlet createInboundRoot() {
 
 		Router router = new Router(this.getContext());
 		
-		router.attach("http://localhost:8111/)",
-				RootResource.class);
+		router.attach("http://localhost:8111/", RootResource.class);
 		
 		return router;
 	}
