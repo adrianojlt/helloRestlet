@@ -11,9 +11,9 @@ public class Main {
 		Example example = new Example();
 		
 		try {
-			example.mailApp();
+			//example.mailApp();
 			//example.helloWorld();
-			//example.simplePageApp();
+			example.simplePageApp();
 			//example.tmpComponent();
 			//example.tmpApp();
 			//example.serverResource();

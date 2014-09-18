@@ -5,12 +5,12 @@ import org.restlet.Component;
 import org.restlet.Server;
 import org.restlet.data.Protocol;
 
-import pt.adrz.hellorestlet.application.HelloWorld;
 import pt.adrz.hellorestlet.application.MailServerApplication;
 import pt.adrz.hellorestlet.application.SimplePageApplication;
 import pt.adrz.hellorestlet.application.TmpApplication;
 import pt.adrz.hellorestlet.component.TmpComponent;
 import pt.adrz.hellorestlet.resource.FirstServerResource;
+import pt.adrz.hellorestlet.resource.HelloWorld;
 
 
 public class Example {

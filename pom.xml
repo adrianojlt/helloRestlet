@@ -4,7 +4,8 @@
   <groupId>helloRestlet</groupId>
   <artifactId>helloRestlet</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
+  <name>REST examples</name>
   
   	<properties>
   	 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,6 +16,7 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
@@ -23,6 +25,7 @@
           <target>${project.build.javaVersion}</target>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.4</version>
@@ -31,6 +34,22 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+
+      <!--
+      <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>2.4</version>
+		  <configuration>
+		    <archive>
+		        <manifest>
+		            <mainClass>pt.adrz.hellorestlet.main.Main</mainClass>
+		        </manifest>
+		    </archive>
+		  </configuration>
+	   </plugin>
+	   -->
+	   
     </plugins>
   </build>
   
