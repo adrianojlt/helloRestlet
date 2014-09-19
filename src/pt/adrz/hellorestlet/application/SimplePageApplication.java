@@ -9,6 +9,7 @@ import org.restlet.routing.Router;
 
 import pt.adrz.hellorestlet.resource.FirstRestlet;
 import pt.adrz.hellorestlet.resource.HelloWorld;
+import pt.adrz.hellorestlet.resource.HowToRestlet;
 import pt.adrz.hellorestlet.resource.MainPageRestlet;
 import pt.adrz.hellorestlet.resource.RootResource;
 import pt.adrz.hellorestlet.resource.TodoResource;
@@ -17,29 +18,32 @@ import pt.adrz.hellorestlet.resource.TodoResources;
 public class SimplePageApplication extends Application {
 	
 	public SimplePageApplication() {
-		
+		super();
 	}
-	
+
 	public SimplePageApplication(Context parentContext) {
 		super(parentContext);
 	}
+	
+	//public SimplePageApplication(Context parentContext) { super(parentContext); }
 	
 	@Override
 	public synchronized Restlet createInboundRoot() {
 		
 		Router router = new Router(getContext());
 
-		//router.attach("/", new MainPageRestlet());
-		router.attach("http://localhost:8111/", new MainPageRestlet());
-		router.attach("http://localhost:8111/root", RootResource.class);
-		router.attach("http://localhost:8111/firstrestlet", new FirstRestlet());
-		router.attach("http://localhost:8111/mainpage", new MainPageRestlet());
-		router.attach("http://localhost:8111/helloworld", HelloWorld.class);
+		router.attach("/", new MainPageRestlet());
+		router.attach("/root", RootResource.class);
+		router.attach("/firstrestlet", new FirstRestlet());
+		router.attach("/mainpage", new MainPageRestlet());
+		router.attach("/helloworld", HelloWorld.class);
+
 		//router.attach("http://localhost:8111/firstresource", FirstResource.class);
 		
 		// Todo app ...
-		router.attach("http://localhost:8111/rest/todos", 			TodoResources.class);
-		router.attach("http://localhost:8111/rest/todos/{todoId}", 	TodoResource.class);
+		router.attach("/howto", new HowToRestlet());
+		router.attach("/rest/todos", 			TodoResources.class);
+		router.attach("/rest/todos/{todoId}", 	TodoResource.class);
 		
 		// manage users
 		

@@ -16,9 +16,11 @@ public class TodoStaticDAO  extends TodoDAOFactory {
 	private static final TodoStaticDAO 		INSTANCE = new TodoStaticDAO();
 	
 	static {
-        INSTANCE.create(new Todo(1L, "Learn AngularJS", "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop. "));
-        INSTANCE.create(new Todo(2L, "Use Twitter Bootstrap", "Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development."));
-        INSTANCE.create(new Todo(3L, "Integrate with Restlet", "The leading web API framework for Java"));
+        INSTANCE.create(new Todo(1L, "Learn AngularJS", "For SPA simple page apps"));
+        INSTANCE.create(new Todo(2L, "Use Bootstrap", "responsive css framework"));
+        INSTANCE.create(new Todo(3L, "Restlet", "Build and and deploy a restful server using Restlet framework"));
+        INSTANCE.create(new Todo(4L, "Git", "Master this Version Control System tool"));
+        INSTANCE.create(new Todo(5L, "Jenkins", "For continuous integrate the source code created"));
     }
 	
 	public static TodoStaticDAO getInstance() {

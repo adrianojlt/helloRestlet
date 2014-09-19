@@ -49,7 +49,10 @@ public class Example {
 	}	
 	
 	public void simplePageApp() throws Exception {
-		server.setNext(new SimplePageApplication());
-		server.start();
+		
+		Component component = new Component();
+		component.getServers().add(this.server);
+		component.getDefaultHost().attachDefault(new SimplePageApplication());
+		component.start();
 	}
 }

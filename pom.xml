@@ -7,14 +7,18 @@
   <packaging>jar</packaging>
   <name>REST examples</name>
   
-  	<properties>
-  	 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.javaVersion>1.7</project.build.javaVersion>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.javaVersion>1.7</project.build.javaVersion>
 		<version.lib.restlet>2.2.1</version.lib.restlet>
 	</properties>
 
+
+
   <build>
+
     <sourceDirectory>src</sourceDirectory>
+
     <plugins>
 
       <plugin>
@@ -37,44 +41,87 @@
 
       <!--
       <plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-jar-plugin</artifactId>
-		  <version>2.4</version>
-		  <configuration>
-		    <archive>
-		        <manifest>
-		            <mainClass>pt.adrz.hellorestlet.main.Main</mainClass>
-		        </manifest>
-		    </archive>
-		  </configuration>
-	   </plugin>
-	   -->
+  		  <artifactId>maven-assembly-plugin</artifactId>
+  		  <configuration>
+  		    <archive>
+  		        <manifest>
+  		            <mainClass>pt.adrz.hellorestlet.main.Main</mainClass>
+  		        </manifest>
+  		    </archive>
+  		    <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      -->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>copy-dependencies</id>
+                <phase>prepare-package</phase>
+                <goals>
+                    <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/helloRestlet/lib</outputDirectory>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>false</overWriteSnapshots>
+                    <overWriteIfNewer>true</overWriteIfNewer>
+                </configuration>
+            </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+            <archive>
+                <manifest>
+                    <addClasspath>true</addClasspath>
+                    <classpathPrefix>lib/</classpathPrefix>
+                    <mainClass>pt.adrz.hellorestlet.main.Main</mainClass>
+                </manifest>
+                <manifestEntries>
+                    <Class-Path>.</Class-Path>
+                </manifestEntries>
+            </archive>
+            <finalName>helloRestlet/hellorestlet</finalName>
+        </configuration>
+      </plugin>
 	   
     </plugins>
+
   </build>
   
   
 	
 	<repositories>
 	
-        <repository>
-            <id>maven-restlet</id>
-            <name>Public online Restlet repository</name>
-            <url>http://maven.restlet.org</url>
-		</repository>
+    <repository>
+      <id>maven-restlet</id>
+      <name>Public online Restlet repository</name>
+      <url>http://maven.restlet.org</url>
+  	</repository>
 		
 	</repositories>
 
-	  <dependencies>
 
-	    <dependency>
-	      <groupId>junit</groupId>
-	      <artifactId>junit</artifactId>
-	      <version>3.8.1</version>
-	      <scope>test</scope>
-	    </dependency>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
 	    
-	    <dependency>
+    <dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 		    <version>3.0.1</version>
@@ -88,24 +135,25 @@
 		  <version>5.1.25</version>
 		</dependency>
 		
-		
 			<!-- RESTLET -->
-        <dependency>
+    <dependency>
 			<groupId>org.restlet.jse</groupId>
-            <artifactId>org.restlet</artifactId>
-            <version>${version.lib.restlet}</version>
-        </dependency>
-        <dependency>
+      <artifactId>org.restlet</artifactId>
+      <version>${version.lib.restlet}</version>
+    </dependency>
+    
+    <dependency>
 			<groupId>org.restlet.jee</groupId>
-            <artifactId>org.restlet.ext.servlet</artifactId>
-            <version>${version.lib.restlet}</version>
-        </dependency>
-         <dependency>
-            <groupId>org.restlet.jee</groupId>
-            <artifactId>org.restlet.ext.jackson</artifactId>
-            <version>${version.lib.restlet}</version>
-        </dependency>
+      <artifactId>org.restlet.ext.servlet</artifactId>
+      <version>${version.lib.restlet}</version>
+    </dependency>
 
-	  </dependencies>
+    <dependency>
+        <groupId>org.restlet.jee</groupId>
+        <artifactId>org.restlet.ext.jackson</artifactId>
+        <version>${version.lib.restlet}</version>
+    </dependency>
+
+  </dependencies>
 
 </project>
