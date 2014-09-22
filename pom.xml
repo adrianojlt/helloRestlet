@@ -135,22 +135,40 @@
 		  <version>5.1.25</version>
 		</dependency>
 		
-			<!-- RESTLET -->
+    <!-- RESTLET -->
     <dependency>
-			<groupId>org.restlet.jse</groupId>
-      <artifactId>org.restlet</artifactId>
-      <version>${version.lib.restlet}</version>
+        <groupId>org.restlet.jse</groupId>
+        <artifactId>org.restlet</artifactId>
+        <version>${version.lib.restlet}</version>
     </dependency>
     
     <dependency>
-			<groupId>org.restlet.jee</groupId>
-      <artifactId>org.restlet.ext.servlet</artifactId>
-      <version>${version.lib.restlet}</version>
+        <groupId>org.restlet.jee</groupId>
+        <artifactId>org.restlet.ext.servlet</artifactId>
+        <version>${version.lib.restlet}</version>
     </dependency>
 
     <dependency>
-        <groupId>org.restlet.jee</groupId>
+        <groupId>org.restlet.jse</groupId>
         <artifactId>org.restlet.ext.jackson</artifactId>
+        <version>${version.lib.restlet}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.restlet.jse</groupId>
+        <artifactId>org.restlet.ext.json</artifactId>
+        <version>${version.lib.restlet}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.restlet.jse</groupId>
+        <artifactId>org.restlet.ext.xstream</artifactId>
+        <version>${version.lib.restlet}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.restlet.jse</groupId>
+        <artifactId>org.restlet.ext.xml</artifactId>
         <version>${version.lib.restlet}</version>
     </dependency>
 

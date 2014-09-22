@@ -3,6 +3,7 @@ package pt.adrz.hellorestlet.resource;
 import java.io.IOException;
 
 import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.ext.xstream.XstreamRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
@@ -15,9 +16,14 @@ public class TodoResources extends ServerResource {
 
 	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(TodoDAOFactory.TODO_STATIC);
 
-	@Get
+	@Get("json")
 	public Representation list() {
 		return new JacksonRepresentation<>(content.list());
+	}
+	
+	@Get("xml")
+	public Representation listXml() {
+		return new XstreamRepresentation<>(content.list());
 	}
 
 	@Post("json")
