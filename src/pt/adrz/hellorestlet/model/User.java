@@ -1,4 +1,4 @@
-package pt.adrz.helloservlet.model;
+package pt.adrz.hellorestlet.model;
 
 public class User {
 

@@ -9,7 +9,7 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 import pt.adrz.hellorestlet.dao.TodoDAOFactory;
-import pt.adrz.helloservlet.model.Todo;
+import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoResources extends ServerResource {
 

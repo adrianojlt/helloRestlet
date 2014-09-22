@@ -5,6 +5,7 @@ package pt.adrz.hellorestlet.application;
 import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Restlet;
+import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
 import pt.adrz.hellorestlet.filter.CorsFilter;
@@ -31,9 +32,14 @@ public class SimplePageApplication extends Application {
 	@Override
 	public synchronized Restlet createInboundRoot() {
 		
+		// ... to serve static files
+		Directory directory = new Directory(this.getContext(), "clap://index.html");
+		directory.setDeeplyAccessible(true);
+		
 		Router router = new Router(getContext());
 
 		router.attach("/", new MainPageRestlet());
+		router.attach("/web", directory);
 		router.attach("/root", RootResource.class);
 		router.attach("/firstrestlet", new FirstRestlet());
 		router.attach("/mainpage", new MainPageRestlet());

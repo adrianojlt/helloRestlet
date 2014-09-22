@@ -8,6 +8,7 @@ import org.restlet.data.Protocol;
 import pt.adrz.hellorestlet.application.MailServerApplication;
 import pt.adrz.hellorestlet.application.SimplePageApplication;
 import pt.adrz.hellorestlet.application.TmpApplication;
+import pt.adrz.hellorestlet.component.SimplePageComponent;
 import pt.adrz.hellorestlet.component.TmpComponent;
 import pt.adrz.hellorestlet.resource.FirstServerResource;
 import pt.adrz.hellorestlet.resource.HelloWorld;
@@ -50,9 +51,12 @@ public class Example {
 	
 	public void simplePageApp() throws Exception {
 		
-		Component component = new Component();
-		component.getServers().add(this.server);
-		component.getDefaultHost().attachDefault(new SimplePageApplication());
-		component.start();
+		SimplePageComponent spc = new SimplePageComponent();
+		spc.start();
+		
+		//Component component = new Component();
+		//component.getServers().add(this.server);
+		//component.getDefaultHost().attachDefault(new SimplePageApplication());
+		//component.start();
 	}
 }

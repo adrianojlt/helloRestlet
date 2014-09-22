@@ -2,7 +2,7 @@ package pt.adrz.hellorestlet.dao;
 
 import java.util.List;
 
-import pt.adrz.helloservlet.model.Todo;
+import pt.adrz.hellorestlet.model.Todo;
 
 public abstract class TodoDAOFactory {
 	

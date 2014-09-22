@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import pt.adrz.helloservlet.model.Todo;
+import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoStaticDAO  extends TodoDAOFactory {
 	
