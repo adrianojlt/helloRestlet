@@ -7,6 +7,7 @@ import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
+import pt.adrz.hellorestlet.filter.CorsFilter;
 import pt.adrz.hellorestlet.resource.FirstRestlet;
 import pt.adrz.hellorestlet.resource.HelloWorld;
 import pt.adrz.hellorestlet.resource.HowToRestlet;
@@ -47,6 +48,10 @@ public class SimplePageApplication extends Application {
 		
 		// manage users
 		
-		return router;
+		// apply a filter after receiving a call ...
+		CorsFilter cFilter = new CorsFilter(this.getContext());
+		cFilter.setNext(router);
+		
+		return cFilter;
 	}
 }
