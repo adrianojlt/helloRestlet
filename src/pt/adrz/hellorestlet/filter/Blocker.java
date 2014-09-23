@@ -1,4 +1,4 @@
-package pt.adrz.hellorestlet.tmp;
+package pt.adrz.hellorestlet.filter;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;

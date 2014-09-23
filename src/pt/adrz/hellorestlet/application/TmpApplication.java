@@ -6,11 +6,11 @@ import org.restlet.Restlet;
 import org.restlet.resource.ServerResource;
 import org.restlet.routing.Router;
 
+import pt.adrz.hellorestlet.filter.Blocker;
 import pt.adrz.hellorestlet.resource.FirstResource;
 import pt.adrz.hellorestlet.resource.FirstRestlet;
 import pt.adrz.hellorestlet.resource.FirstServerResource;
 import pt.adrz.hellorestlet.resource.Tracer;
-import pt.adrz.hellorestlet.tmp.Blocker;
 
 public class TmpApplication extends Application{
 	

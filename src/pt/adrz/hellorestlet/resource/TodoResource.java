@@ -56,7 +56,8 @@ public class TodoResource extends ServerResource {
         
         result = new JacksonRepresentation<Todo>(todo);
 
-        return result;
+        if ( this.isInRole("manager") ) return result;
+        else throw new ResourceException(Status.CLIENT_ERROR_FORBIDDEN);
     }
 	
 	public Representation getFreemarker() {

@@ -171,6 +171,12 @@
         <artifactId>org.restlet.ext.xml</artifactId>
         <version>${version.lib.restlet}</version>
     </dependency>
+    
+     <dependency>
+        <groupId>org.restlet.jse</groupId>
+        <artifactId>org.restlet.ext.crypto</artifactId>
+        <version>${version.lib.restlet}</version>
+    </dependency>
 
   </dependencies>
 
