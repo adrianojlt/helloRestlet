@@ -34,7 +34,7 @@ public class CorsFilter extends Filter{
 			}
 			
 			responseHeaders.add("Access-Control-Allow-Origin", "*");
-			responseHeaders.add("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
+			responseHeaders.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 	 		responseHeaders.add("Access-Control-Allow-Headers", "Content-Type");
 	 		responseHeaders.add("Access-Control-Allow-Credentials", "true");
 	 		responseHeaders.add("Access-Control-Max-Age", "60");
