@@ -19,7 +19,7 @@ public abstract class TodoDAOFactory {
 		switch (whichFactory) {
 			case STATIC: 				return new TodoStaticDAO();
 			case CACHE: 				return null;
-			case MYSQL_JDBC: 			return null;
+			case MYSQL_JDBC: 			return new TodoMySqlDAO();
 			case MYSQL_SPRING_JDBC: 	return null;
 			default: return null;
 		}

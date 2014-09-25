@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.ext.wadl.ApplicationInfo;
 import org.restlet.ext.wadl.DocumentationInfo;
 import org.restlet.ext.wadl.MethodInfo;
 import org.restlet.ext.wadl.RepresentationInfo;
@@ -33,29 +34,52 @@ public class TodoResource extends WadlServerResource {
 	
 	private Long todoId;
 	
+	/*
+	@Override
+	protected void describe(ApplicationInfo applicationInfo) {
+
+		super.describe(applicationInfo);
+
+		RepresentationInfo rep = new RepresentationInfo(MediaType.TEXT_PLAIN);
+        rep.setIdentifier("Todo");
+        applicationInfo.getRepresentations().add(rep);
+
+        DocumentationInfo doc = new DocumentationInfo();
+        doc.setTitle("Todo");
+        doc.setTextContent("Simple TODO");
+        rep.getDocumentations().add(doc);
+	}
+	*/
+	
+	/*
 	@Override
 	protected RepresentationInfo describe( MethodInfo methodInfo, Class<?> representationClass, Variant variant) {
-
 	    RepresentationInfo result = super.describe(methodInfo, representationClass, variant);
-	
-	    result.setMediaType(MediaType.TEXT_PLAIN);
-	    result.setIdentifier("root");
-	
-	    DocumentationInfo doc = new DocumentationInfo();
-	
-	    doc.setTitle("Mail application");
-	    doc.setTextContent("Simple string welcoming the user to the mail application");
-	
-	    result.getDocumentations().add(doc);
+	    result.setReference("todo");
 	    return result;
-	}
+	    */
+	    //result.setMediaType(MediaType.TEXT_PLAIN);
+	    //result.setIdentifier("root");
+	    //DocumentationInfo doc = new DocumentationInfo();
+	    //doc.setTitle("Mail application");
+	    //doc.setTextContent("Simple string welcoming the user to the mail application");
+	    //result.getDocumentations().add(doc);
+	    //return result;
+	//}
 	
 	protected void doInit() throws ResourceException {
 
+
+		this.setAutoDescribing(false);
 		this.setName("todo");
 		this.setDescription("todo description");
 		
-		this.todoId = Long.valueOf(this.getAttribute("todoId"));
+		String id = getAttribute("todoId");
+		
+		if ( id == null) return;
+		
+		try { this.todoId = Long.valueOf(id); }
+		catch(Exception e) { e.printStackTrace(); }
 
 		this.getVariants().add(new Variant(MediaType.APPLICATION_XML));
 		this.getVariants().add(new Variant(MediaType.APPLICATION_JSON));
