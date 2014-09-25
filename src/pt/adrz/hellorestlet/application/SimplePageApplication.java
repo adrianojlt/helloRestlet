@@ -1,6 +1,5 @@
 package pt.adrz.hellorestlet.application;
 
-import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
@@ -58,7 +57,8 @@ public class SimplePageApplication extends WadlApplication {
 
 		cFilter.setNext(testRouter);
 		testRouter.attachDefault(todoRouter);
-		return cFilter;
+		//return cFilter;
+		return testRouter;
 	}
 	
 	private ChallengeAuthenticator getAuth() {

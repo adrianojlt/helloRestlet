@@ -34,6 +34,26 @@ public class TodoResource extends WadlServerResource {
 	
 	private Long todoId;
 	
+	@Override
+	protected Representation describe() {
+		setName("Todo resource");
+		return null;
+	}
+	
+	@Override
+	protected void describeGet(MethodInfo info) {
+
+		info.setIdentifier("items");
+        info.setDocumentation("Retrieve the list of current items.");
+
+        RepresentationInfo repInfo = new RepresentationInfo(MediaType.TEXT_XML);
+
+        repInfo.setXmlElement("items");
+        repInfo.setDocumentation("List of items as XML file");
+
+        info.getResponse().getRepresentations().add(repInfo);
+	}
+
 	/*
 	@Override
 	protected void describe(ApplicationInfo applicationInfo) {
