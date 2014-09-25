@@ -12,7 +12,6 @@ import org.restlet.ext.wadl.WadlServerResource;
 import org.restlet.ext.xml.DomRepresentation;
 import org.restlet.ext.xstream.XstreamRepresentation;
 import org.restlet.representation.EmptyRepresentation;
-//import org.restlet.ext.x
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
@@ -23,12 +22,14 @@ import org.restlet.resource.ServerResource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import pt.adrz.hellorestlet.dao.DataType;
 import pt.adrz.hellorestlet.dao.TodoDAOFactory;
+import pt.adrz.hellorestlet.dao.TodoDAOFactory.*;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoResource extends WadlServerResource {
 
-	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(TodoDAOFactory.TODO_STATIC);
+	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(DataType.STATIC);
 	
 	private Long todoId;
 	

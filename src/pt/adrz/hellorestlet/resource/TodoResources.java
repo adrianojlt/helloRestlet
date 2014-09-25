@@ -11,12 +11,13 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import pt.adrz.hellorestlet.dao.DataType;
 import pt.adrz.hellorestlet.dao.TodoDAOFactory;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoResources extends ServerResource {
 
-	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(TodoDAOFactory.TODO_STATIC);
+	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(DataType.STATIC);
 
 	@Get("json")
 	public Representation list() {
