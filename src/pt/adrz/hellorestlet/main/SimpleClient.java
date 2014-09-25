@@ -11,7 +11,9 @@ public class SimpleClient {
 		String uri = (args.length > 0) ? args[0] : "http://localhost:8111" ;
 	    //Client client = new Client(Protocol.HTTP);
 	    ClientResource resource = new ClientResource(uri);
-	    resource.get().write(System.out);
+	    System.out.println("\n2) Describe the application\n");
+        System.out.println(resource.options().getText());
+	    //resource.get().write(System.out);
 	    //client.get(uri).getEntity().write(System.out);
 	}
 }

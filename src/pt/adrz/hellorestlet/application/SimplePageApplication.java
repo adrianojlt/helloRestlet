@@ -5,6 +5,7 @@ import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.ext.crypto.DigestAuthenticator;
+import org.restlet.ext.wadl.WadlApplication;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
@@ -23,11 +24,13 @@ import pt.adrz.hellorestlet.resource.TmpRestlet;
 import pt.adrz.hellorestlet.resource.TodoResource;
 import pt.adrz.hellorestlet.resource.TodoResources;
 
-public class SimplePageApplication extends Application {
+public class SimplePageApplication extends WadlApplication {
 	
 	public SimplePageApplication() {
-		super();
 		this.setName("simple page application");
+		setDescription("example todo");
+	    setOwner("Restlet S.A.S.");
+	    setAuthor("The Restlet Team");
 		
 		// declare roles
 		this.getRoles().add(new Role(this,"admin"));
