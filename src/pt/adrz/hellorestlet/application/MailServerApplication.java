@@ -20,7 +20,7 @@ public class MailServerApplication extends Application {
 
 		Router router = new Router(this.getContext());
 
-		router.attach("http://localhost:8111/root", RootResource.class);
+		router.attach("/", RootResource.class);
 		
 		return router;
 	}

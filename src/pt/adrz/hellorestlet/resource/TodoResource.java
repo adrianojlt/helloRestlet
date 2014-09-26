@@ -2,11 +2,10 @@ package pt.adrz.hellorestlet.resource;
 
 import java.io.IOException;
 
+import org.codehaus.stax2.ri.typed.NumberUtil;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
-import org.restlet.ext.wadl.ApplicationInfo;
-import org.restlet.ext.wadl.DocumentationInfo;
 import org.restlet.ext.wadl.MethodInfo;
 import org.restlet.ext.wadl.RepresentationInfo;
 import org.restlet.ext.wadl.WadlServerResource;
@@ -19,13 +18,11 @@ import org.restlet.representation.Variant;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
 import org.restlet.resource.ResourceException;
-import org.restlet.resource.ServerResource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import pt.adrz.hellorestlet.dao.DataType;
 import pt.adrz.hellorestlet.dao.TodoDAOFactory;
-import pt.adrz.hellorestlet.dao.TodoDAOFactory.*;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoResource extends WadlServerResource {
@@ -99,7 +96,9 @@ public class TodoResource extends WadlServerResource {
 		if ( id == null) return;
 		
 		try { this.todoId = Long.valueOf(id); }
-		catch(Exception e) { e.printStackTrace(); }
+		catch(NumberFormatException e) {
+			throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
+		}
 
 		this.getVariants().add(new Variant(MediaType.APPLICATION_XML));
 		this.getVariants().add(new Variant(MediaType.APPLICATION_JSON));
@@ -110,8 +109,15 @@ public class TodoResource extends WadlServerResource {
     public Representation get(Variant variant) {
 		
 		Representation result = null;
+		
+		Todo todo = null;
 
-        Todo todo = this.content.get(todoId);
+		try {
+			todo = this.content.get(todoId);
+		}
+		catch (NumberFormatException nExc) {
+			throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST,"invalid id type");
+		}
 
         if (todo == null) { throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND); }
         

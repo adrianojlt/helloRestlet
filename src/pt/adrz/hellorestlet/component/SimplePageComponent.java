@@ -13,6 +13,7 @@ import org.restlet.routing.VirtualHost;
 import org.restlet.security.MemoryRealm;
 import org.restlet.security.User;
 
+import pt.adrz.hellorestlet.application.MailServerApplication;
 import pt.adrz.hellorestlet.application.SimplePageApplication;
 
 public class SimplePageComponent extends Component{
@@ -47,12 +48,15 @@ public class SimplePageComponent extends Component{
 	}
 	
 	private void hosts() {
+
 		VirtualHost host = this.getDefaultHost();
 		this.application = new SimplePageApplication();
-		//host.attach("/v1", this.application);
+		host.attach("/v1", this.application);
+		host.attach("/mail", new MailServerApplication());
+
 		//host.attach("/v2", this.application);
-		host.attachDefault(this.application);
-		this.setDefaultHost(host);
+		//host.attachDefault(this.application);
+		//this.setDefaultHost(host);
 	}
 	
 	
