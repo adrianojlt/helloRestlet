@@ -1,8 +1,10 @@
 package pt.adrz.hellorestlet.application;
 
+import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
+import org.restlet.engine.util.SystemUtils;
 import org.restlet.ext.crypto.DigestAuthenticator;
 import org.restlet.ext.wadl.WadlApplication;
 import org.restlet.resource.Directory;
@@ -23,9 +25,10 @@ import pt.adrz.hellorestlet.resource.TmpRestlet;
 import pt.adrz.hellorestlet.resource.TodoResource;
 import pt.adrz.hellorestlet.resource.TodoResources;
 
-public class SimplePageApplication extends WadlApplication {
+public class SimplePageApplication extends Application {
 	
 	public SimplePageApplication() {
+		super();
 		this.setName("simple page application");
 		setDescription("example todo");
 	    setOwner("Restlet S.A.S.");
@@ -46,6 +49,8 @@ public class SimplePageApplication extends WadlApplication {
 	@Override
 	public synchronized Restlet createInboundRoot() {
 
+		System.out.println("createinboundroot");
+
 		Router testRouter = this.getTestRouter();
 		Router todoRouter = this.getTodoRouter();
 		
@@ -57,8 +62,15 @@ public class SimplePageApplication extends WadlApplication {
 
 		cFilter.setNext(testRouter);
 		testRouter.attachDefault(todoRouter);
-		//return cFilter;
-		return testRouter;
+		return cFilter;
+		//return testRouter;
+	}
+	
+	@Override
+	public Restlet createOutboundRoot(){
+		//System.out.println("createoutboundroot");
+		return new CorsFilter(this.getContext());
+		//return null;
 	}
 	
 	private ChallengeAuthenticator getAuth() {
@@ -120,7 +132,7 @@ public class SimplePageApplication extends WadlApplication {
 		Router router = new Router(this.getContext());
 
 		router.attach("/", new MainPageRestlet());
-		router.attach("/web", directory);
+		//router.attach("/web", directory);
 		router.attach("/root", RootResource.class);
 		router.attach("/firstrestlet", new FirstRestlet());
 		router.attach("/mainpage", new MainPageRestlet());
