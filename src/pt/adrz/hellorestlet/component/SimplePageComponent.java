@@ -55,7 +55,7 @@ public class SimplePageComponent extends Component{
 		host.attach("/mail", new MailServerApplication());
 
 		//host.attach("/v2", this.application);
-		//host.attachDefault(this.application);
+		host.attachDefault(this.application);
 		//this.setDefaultHost(host);
 	}
 	
