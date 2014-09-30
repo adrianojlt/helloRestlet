@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class ConfigFactory {
 	
-	static enum STORAGE_TYPE { STATIC, FILE, MYSQL, EMBEDDED}
+	public static enum STORAGE_TYPE { STATIC, FILE, MYSQL, EMBEDDED}
 	
 	public abstract List<Route> getRoutes();
 	

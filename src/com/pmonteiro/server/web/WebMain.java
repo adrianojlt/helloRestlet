@@ -15,11 +15,15 @@ public class WebMain {
     	
         //c.getLogService().setLogPropertiesRef("clap:///logging.properties");
 
-    	VirtualHost host = new VirtualHost();
+    	VirtualHost host = c.getDefaultHost();
 
     	WebApp wp = new WebApp();
     	
     	host.attach("/v1", wp);
     	host.attachDefault(wp);
+
+    	c.setDefaultHost(host);
+    	
+    	c.start();
     }
 }
