@@ -42,8 +42,8 @@ public class MySqlClientStorage extends StorageFactory<Client> {
 	}
 
 	@Override
-	public void create(Client client) {
-		
+	public boolean create(Client client) {
+		return false;
 	}
 
 	@Override

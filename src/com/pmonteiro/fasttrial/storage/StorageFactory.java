@@ -1,5 +1,6 @@
 package com.pmonteiro.fasttrial.storage;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.pmonteiro.fasttrial.model.Client;
@@ -12,7 +13,7 @@ public abstract class StorageFactory<T> {
 	public abstract List<T> list();
 	public abstract T get(Long id);
 	public abstract T get(String email);
-	public abstract void create(T user);
+	public abstract boolean create(T user) throws SQLException, Exception;
 	public abstract void update(T user);
 	public abstract boolean delete(Long id);
 	

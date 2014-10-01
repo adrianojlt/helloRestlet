@@ -1,5 +1,7 @@
 package com.pmonteiro.fasttrial.resource;
 
+import org.restlet.representation.Representation;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import com.pmonteiro.fasttrial.model.User;
@@ -13,5 +15,12 @@ public class UserServerResource extends ServerResource implements UserResource {
 	
 	public UserServerResource() { }
 	
-	
+	protected void doInit() throws ResourceException {
+		this.userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
+	}
+
+	@Override
+	public Representation toJson() {
+		return null;
+	}
 }
