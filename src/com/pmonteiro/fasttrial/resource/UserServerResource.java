@@ -13,10 +13,21 @@ public class UserServerResource extends ServerResource implements UserResource {
 
 	private StorageFactory<User> userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
 	
+	private User user;
+	
+	private Long id;
+	
+	private String email;
+	
 	public UserServerResource() { }
 	
 	protected void doInit() throws ResourceException {
+
+		
+
 		this.userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
+
+		
 	}
 
 	@Override

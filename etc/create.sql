@@ -18,7 +18,7 @@ create table users (
 	PRIMARY KEY(id)
 );
 
-INSERT INTO users ( id , name ) VALUES ( 1 , 'adriano');
+INSERT INTO users ( id , id_group , name , email ) VALUES ( 1 , 1 , 'adriano' , 'adriano@mail.com');
 UPDATE users SET email = 'adriano@mail.com' WHERE id = 1;
 
 create table clients (
