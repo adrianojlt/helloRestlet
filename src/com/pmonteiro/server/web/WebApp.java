@@ -51,15 +51,19 @@ public class WebApp extends Application {
 		
 		// users
 		drouter.attach("/users",UsersServerResource.class);
+		drouter.attach("/users/",UsersServerResource.class);
 		drouter.attach("/users/{id}",UserServerResource.class);
-		drouter.attach("/users/{email}",UserServerResource.class);
+		drouter.attach("/users/{id}/clients",ClientsServerResource.class);
+		drouter.attach("/users/{id}/clients/",ClientsServerResource.class);
+		//drouter.attach("/users/{email}",UserServerResource.class);
 		//drouter.attach("/users/{id}/clients",UserServerResource.class);
 		//drouter.attach("/users/{email}/clients",UserServerResource.class);
 		
 		// clients
 		drouter.attach("/clients",ClientsServerResource.class);
+		drouter.attach("/clients/",ClientsServerResource.class);
 		drouter.attach("/clients/{id}",ClientServerResource.class);
-		drouter.attach("/clients/{email}",ClientServerResource.class);
+		//drouter.attach("/clients/{email}",ClientServerResource.class);
 		
 		// groups
 	}

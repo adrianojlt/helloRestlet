@@ -17,6 +17,8 @@ public abstract class StorageFactory<T> {
 	public abstract void update(T user);
 	public abstract boolean delete(Long id);
 	
+	//public abstract Client getClient(Long userId);
+	
 	public static StorageFactory<User> getUserStorage(STORAGE_TYPE whichFactory) {
 
 		switch (whichFactory) {
@@ -33,7 +35,7 @@ public abstract class StorageFactory<T> {
 		switch (whichFactory) {
 			case STATIC: 				return null;
 			case CACHE: 				return null;
-			case MYSQL_JDBC: 			return MySqlClientStorage.getClientStorage(whichFactory);
+			//case MYSQL_JDBC: 			return MySqlClientStorage.getClientStorage(whichFactory);
 			case MYSQL_SPRING_JDBC: 	return null;
 			default: return null;
 		}

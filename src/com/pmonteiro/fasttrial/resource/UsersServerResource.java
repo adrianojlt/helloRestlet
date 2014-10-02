@@ -15,20 +15,19 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pmonteiro.fasttrial.model.User;
 import com.pmonteiro.fasttrial.api.UsersResource;
-import com.pmonteiro.fasttrial.storage.StorageFactory;
-import com.pmonteiro.fasttrial.storage.StorageFactory.STORAGE_TYPE;
+import com.pmonteiro.fasttrial.storage.FactoryUser;
+import com.pmonteiro.fasttrial.storage.StorageType;
 
 public class UsersServerResource extends ServerResource implements UsersResource {
 	
-	private StorageFactory<User> userDAO;
+	private FactoryUser userDAO;
 	
 	public UsersServerResource() { }
 	
 	protected void doInit() throws ResourceException {
-		this.userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
+		this.userDAO = FactoryUser.getUserStorage(StorageType.MYSQL_JDBC);
 	}
 	
 	@Override

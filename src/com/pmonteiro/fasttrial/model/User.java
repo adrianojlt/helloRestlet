@@ -14,7 +14,8 @@ public class User implements JSONString {
 	private String name;
 	private String email;
 
-	private Group group;
+	private Long groupId;
+	//private Group group;
 	private List<Client> clients;
 
 	public Long getId() { return id; }
@@ -23,8 +24,13 @@ public class User implements JSONString {
 	public void setName(String name) { this.name = name; }
 	public String getEmail() { return email; }
 	public void setEmail(String email) { this.email = email; }
-	public Group getGroup() { return group; }
-	public void setGroup(Group group) { this.group = group; }
+
+	public Long getGroupId() { return this.groupId; }
+	public void setGroupId(Long id) { this.groupId = id; }
+
+	//public Group getGroup() { return group; }
+	//public void setGroup(Group group) { this.group = group; }
+
 	public List<Client> getClients() { return clients; }
 	public void setClients(List<Client> clients) { this.clients = clients; }
 

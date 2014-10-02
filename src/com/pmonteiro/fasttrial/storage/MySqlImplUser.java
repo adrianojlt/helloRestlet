@@ -11,23 +11,26 @@ import java.util.List;
 import com.pmonteiro.fasttrial.model.Client;
 import com.pmonteiro.fasttrial.model.User;
 
-public class MySqlUserStorage extends StorageFactory<User> {
+public class MySqlImplUser extends FactoryUser {
 	
 	private static final String QUERY_ALL_USERS = 
 			"SELECT id, id_group, name, email FROM users;";
 
 	private static final String QUERY_GET_BY_ID = 
 			"SELECT id, id_group, name, email FROM users WHERE id = ?;";
+
+	private static final String QUERY_GET_CLIENTS = 
+			"SELECT id, id_group, name, email FROM clients WHERE user_id = ?;";
 	
 	// singleton ...
-	private static MySqlUserStorage storage = null;
+	private static MySqlImplUser storage = null;
 	
-	public static synchronized MySqlUserStorage getUserStorage() {
-		if ( MySqlUserStorage.storage == null) { return new MySqlUserStorage(); }
-		return MySqlUserStorage.storage;
+	public static synchronized MySqlImplUser getUserStorage() {
+		if ( MySqlImplUser.storage == null) { return new MySqlImplUser(); }
+		return MySqlImplUser.storage;
 	}
 
-	public MySqlUserStorage() { }
+	public MySqlImplUser() { }
 	
 	private static Connection getConnection() throws SQLException, ClassNotFoundException {
 		return ConnectionFactory.getInstance().getConnection();
@@ -38,6 +41,7 @@ public class MySqlUserStorage extends StorageFactory<User> {
 	public List<User> list() {
 		
 		List<User> users = new ArrayList<User>();
+
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -46,7 +50,7 @@ public class MySqlUserStorage extends StorageFactory<User> {
 
 			conn = getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery(MySqlUserStorage.QUERY_ALL_USERS);
+			rs = st.executeQuery(MySqlImplUser.QUERY_ALL_USERS);
 
 			while ( rs.next() ) { 
 
@@ -76,7 +80,7 @@ public class MySqlUserStorage extends StorageFactory<User> {
 		try {
 
 			conn = getConnection();
-			ps = conn.prepareStatement(MySqlUserStorage.QUERY_GET_BY_ID);
+			ps = conn.prepareStatement(MySqlImplUser.QUERY_GET_BY_ID);
 			ps.setLong(1,id);	
 			ps.setMaxRows(1);
 			rs = ps.executeQuery();
@@ -116,5 +120,10 @@ public class MySqlUserStorage extends StorageFactory<User> {
 	@Override
 	public boolean delete(Long id) {
 		return false;
+	}
+
+	@Override
+	public List<Client> listClients(Long userId) {
+		return null;
 	}
 }
