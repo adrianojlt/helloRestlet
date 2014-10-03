@@ -77,6 +77,7 @@ public class MySqlImplUser extends FactoryUser {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+
 		try {
 
 			conn = getConnection();
@@ -84,6 +85,7 @@ public class MySqlImplUser extends FactoryUser {
 			ps.setLong(1,id);	
 			ps.setMaxRows(1);
 			rs = ps.executeQuery();
+
 			if ( rs.next() ) {
 				user.setId(rs.getLong("id"));
 				user.setName(rs.getString("name"));

@@ -14,6 +14,8 @@ import com.pmonteiro.fasttrial.storage.StorageFactory;
 import com.pmonteiro.fasttrial.storage.StorageFactory.STORAGE_TYPE;
 
 public class UserServerResource extends ServerResource implements UserResource {
+	
+	private static String ID = "userid";
 
 	private StorageFactory<User> userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
 	
@@ -30,7 +32,7 @@ public class UserServerResource extends ServerResource implements UserResource {
 		this.userDAO = StorageFactory.getUserStorage(STORAGE_TYPE.MYSQL_JDBC);
 		
 		try {
-			this.id = Long.valueOf(this.getAttribute("id"));
+			this.id = Long.valueOf(this.getAttribute(ID));
 		}
 		catch (NumberFormatException nEx) {
 			throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -45,8 +47,8 @@ public class UserServerResource extends ServerResource implements UserResource {
 		System.out.println(this.id);
 		System.out.println(this.getStatus());
 
-		user = this.getTmpUser();
-		//user = userDAO.get(this.id);
+		//user = this.getTmpUser();
+		user = userDAO.get(this.id);
 		
 		if ( user == null ) return new EmptyRepresentation();
 		else return new JacksonRepresentation<User>( MediaType.APPLICATION_JSON , user );

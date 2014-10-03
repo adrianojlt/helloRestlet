@@ -13,11 +13,17 @@ import com.pmonteiro.fasttrial.model.User;
 
 public class MySqlImplClient extends FactoryClient {
 	
+	private static final String FIELDS = 
+			"id, id_user, name, email";
+	
 	private static final String QUERY_ALL_CLIENTS = 
-			"SELECT id, id_user, name, email FROM clients;";
+			"SELECT " + FIELDS + " FROM clients;";
 
 	private static final String QUERY_GET_CLIENTS_BY_USER = 
-			"SELECT id, id_user, name, email FROM clients WHERE id_user = ?;";
+			"SELECT " + FIELDS + " FROM clients WHERE id_user = ?;";
+
+	private static final String QUERY_GET_CLIENTS_BY_EMAIL = 
+			"SELECT id, id_user, name, email FROM clients WHERE email = ?;";
 	
 	private static MySqlImplClient storage = null;
 	
@@ -100,14 +106,42 @@ public class MySqlImplClient extends FactoryClient {
 
 		return clients;
 	}
-
+	
 	@Override
-	public Client get(Long id) {
-		return null;
+	public Client get(String email) {
+		
+		Client client = new Client();
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = getConnection();
+			ps = conn.prepareStatement(MySqlImplClient.QUERY_GET_CLIENTS_BY_EMAIL);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			
+			if ( rs.next() ) { 
+
+				client.setId((rs.getLong("id")));
+				client.setName(rs.getString("name"));
+				client.setEmail(rs.getString("email"));
+			}
+			else 
+				client = null;
+		}
+		catch (SQLException eSQL) { eSQL.printStackTrace(); }
+		catch (NullPointerException eNull) { eNull.printStackTrace(); }
+		catch (Exception e) { e.printStackTrace(); }
+		finally { ConnectionFactory.close(rs, ps, conn); }
+
+		return client;
 	}
 
 	@Override
-	public Client get(String email) {
+	public Client get(Long id) {
 		return null;
 	}
 
@@ -127,4 +161,10 @@ public class MySqlImplClient extends FactoryClient {
 	}
 
 	
+	private List<Client> queryBy(String query, Long value) {
+		return null;
+	}
+	private List<Client> queryBy(String query, String value) {
+		return null;
+	}
 }

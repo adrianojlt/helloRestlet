@@ -7,5 +7,6 @@ public interface ClientsResource {
 	
 	@Get
 	public Representation represent();
+	
 
 }

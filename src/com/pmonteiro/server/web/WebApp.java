@@ -2,11 +2,14 @@ package com.pmonteiro.server.web;
 
 import org.restlet.Application;
 import org.restlet.Context;
+import org.restlet.Request;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
+import org.restlet.util.RouteList;
 
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
 import com.pmonteiro.fasttrial.resource.ClientsServerResource;
+import com.pmonteiro.fasttrial.resource.ConcreteServerResource;
 import com.pmonteiro.fasttrial.resource.UserServerResource;
 import com.pmonteiro.fasttrial.resource.UsersServerResource;
 
@@ -20,12 +23,23 @@ public class WebApp extends Application {
 	public WebApp() {
 		
 	}
+	
+	private void loadClasses() {
+		
+	}
+	
+	private void tmp() {
+		
+	}
 
 
 	@Override
 	public Restlet createInboundRoot() {
 		
+		this.tmp();
+
 		this.loadConfig();
+		this.loadClasses();
 		
 		// filters 
 		
@@ -50,19 +64,27 @@ public class WebApp extends Application {
 		drouter = new Router(getContext());
 		
 		// users
-		drouter.attach("/users",UsersServerResource.class);
-		drouter.attach("/users/",UsersServerResource.class);
-		drouter.attach("/users/{id}",UserServerResource.class);
-		drouter.attach("/users/{id}/clients",ClientsServerResource.class);
-		drouter.attach("/users/{id}/clients/",ClientsServerResource.class);
+		//drouter.attach("/users",UsersServerResource.class);
+		//drouter.attach("/{classname}",UsersServerResource.class);
+		//drouter.attach("/{classname}",ClientsServerResource.class);
+		drouter.attach("/{classname}",ConcreteServerResource.class);
+		drouter.attach("/users/{userid}",UserServerResource.class);
+		drouter.attach("/users/{userid}/clients",ClientsServerResource.class);
+		drouter.attach("/users/{userid}/clients/",ClientsServerResource.class);
+		drouter.attach("/users/{userid}/clients/{email}",ClientsServerResource.class);
+		drouter.attach("/users/{userid}/clients/{email}/",ClientsServerResource.class);
 		//drouter.attach("/users/{email}",UserServerResource.class);
 		//drouter.attach("/users/{id}/clients",UserServerResource.class);
 		//drouter.attach("/users/{email}/clients",UserServerResource.class);
 		
 		// clients
-		drouter.attach("/clients",ClientsServerResource.class);
+		drouter.attach("/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
 		drouter.attach("/clients/",ClientsServerResource.class);
-		drouter.attach("/clients/{id}",ClientServerResource.class);
+		drouter.attach("/clients/id/{id}",ClientServerResource.class);
+		drouter.attach("/clients/id/{id}/",ClientServerResource.class);
+		drouter.attach("/clients/email/{email}",ClientServerResource.class);
+		drouter.attach("/clients/email/{email}/",ClientServerResource.class);
+		//RouteList list = new rout
 		//drouter.attach("/clients/{email}",ClientServerResource.class);
 		
 		// groups
