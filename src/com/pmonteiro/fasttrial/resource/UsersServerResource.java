@@ -44,7 +44,7 @@ public class UsersServerResource extends ServerResource implements UsersResource
 	@Override
 	public Representation create(Representation r) throws ResourceException {
 		
-		if ( r == null ) throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST,"send data ..");
+		if ( r == null ) throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST," you must send data ..");
 
 		User user = null;
 		boolean stored = false;

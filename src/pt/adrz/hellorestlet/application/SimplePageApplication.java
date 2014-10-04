@@ -28,11 +28,13 @@ import pt.adrz.hellorestlet.resource.TodoResources;
 public class SimplePageApplication extends Application {
 	
 	public SimplePageApplication() {
+
 		super();
+
 		this.setName("simple page application");
 		setDescription("example todo");
-	    setOwner("Restlet S.A.S.");
-	    setAuthor("The Restlet Team");
+	    setOwner("we");
+	    setAuthor("the Restlet Team");
 		
 		// declare roles
 		this.getRoles().add(new Role(this,"admin"));

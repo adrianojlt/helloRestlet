@@ -5,11 +5,14 @@ import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
+import org.restlet.routing.TemplateRoute;
 import org.restlet.util.RouteList;
 
+import com.pmonteiro.fasttrial.api.TestResource;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
 import com.pmonteiro.fasttrial.resource.ClientsServerResource;
 import com.pmonteiro.fasttrial.resource.ConcreteServerResource;
+import com.pmonteiro.fasttrial.resource.TestServerResource;
 import com.pmonteiro.fasttrial.resource.UserServerResource;
 import com.pmonteiro.fasttrial.resource.UsersServerResource;
 
@@ -17,21 +20,15 @@ public class WebApp extends Application {
 	
 	private ConfigFactory config;
 	
-	private Router drouter;
-	private Router trouter;
+	private Router ftRouter;
+	private Router tutorialRouter;
+	private Router testRouter;
 	
-	public WebApp() {
-		
-	}
+	public WebApp() { }
 	
-	private void loadClasses() {
-		
-	}
+	private void loadClasses() { }
 	
-	private void tmp() {
-		
-	}
-
+	private void tmp() { }
 
 	@Override
 	public Restlet createInboundRoot() {
@@ -44,9 +41,14 @@ public class WebApp extends Application {
 		// filters 
 		
 		// routes
-		attachDefaultRouter();
+		attachFastTrialRouter();
+		attachTutorialRouter();
+		attachTestRouter();
+		
+		ftRouter.attachDefault(tutorialRouter);
+		tutorialRouter.attachDefault(testRouter);
 
-		return drouter;
+		return ftRouter;
 	}
 
 
@@ -59,35 +61,59 @@ public class WebApp extends Application {
 		this.config = ConfigFactory.getConfigFactory(ConfigFactory.STORAGE_TYPE.STATIC);
 	}
 	
-	private void attachDefaultRouter() {
+	private void attachTestRouter() {
+
+		String base = "/test";
+
+		testRouter = new Router();
 		
-		drouter = new Router(getContext());
+		testRouter.attach(base + "/{test}",TestServerResource.class);
+		testRouter.attach(base + "/{classname}",ConcreteServerResource.class);
 		
-		// users
-		//drouter.attach("/users",UsersServerResource.class);
+		testRouter.attachDefault(TestServerResource.class);
 		//drouter.attach("/{classname}",UsersServerResource.class);
 		//drouter.attach("/{classname}",ClientsServerResource.class);
-		drouter.attach("/{classname}",ConcreteServerResource.class);
-		drouter.attach("/users/{userid}",UserServerResource.class);
-		drouter.attach("/users/{userid}/clients",ClientsServerResource.class);
-		drouter.attach("/users/{userid}/clients/",ClientsServerResource.class);
-		drouter.attach("/users/{userid}/clients/{email}",ClientsServerResource.class);
-		drouter.attach("/users/{userid}/clients/{email}/",ClientsServerResource.class);
-		//drouter.attach("/users/{email}",UserServerResource.class);
-		//drouter.attach("/users/{id}/clients",UserServerResource.class);
-		//drouter.attach("/users/{email}/clients",UserServerResource.class);
+	}
+	
+	private void attachFastTrialRouter() {
+		
+		String base = "/ft";
+
+		ftRouter = new Router(getContext());
+		
+		// users
+		ftRouter.attach(base + "/users",UsersServerResource.class);
+		ftRouter.attach(base + "/users/",UsersServerResource.class);
+		ftRouter.attach(base + "/users/{userid}",UserServerResource.class);
+		ftRouter.attach(base + "/users/{userid}/clients",ClientsServerResource.class);
+		ftRouter.attach(base + "/users/{userid}/clients/",ClientsServerResource.class);
+		ftRouter.attach(base + "/users/{userid}/clients/{email}",ClientsServerResource.class);
+		ftRouter.attach(base + "/users/{userid}/clients/{email}/",ClientsServerResource.class);
+		//drouter.attach(base + "/users/{email}",UserServerResource.class);
+		//drouter.attach(base + "/users/{id}/clients",UserServerResource.class);
+		//drouter.attach(base + "/users/{email}/clients",UserServerResource.class);
 		
 		// clients
-		drouter.attach("/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
-		drouter.attach("/clients/",ClientsServerResource.class);
-		drouter.attach("/clients/id/{id}",ClientServerResource.class);
-		drouter.attach("/clients/id/{id}/",ClientServerResource.class);
-		drouter.attach("/clients/email/{email}",ClientServerResource.class);
-		drouter.attach("/clients/email/{email}/",ClientServerResource.class);
+		ftRouter.attach(base + "/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
+		ftRouter.attach(base + "/clients/",ClientsServerResource.class);
+		ftRouter.attach(base + "/clients/id/{id}",ClientServerResource.class);
+		ftRouter.attach(base + "/clients/id/{id}/",ClientServerResource.class);
+		ftRouter.attach(base + "/clients/email/{email}",ClientServerResource.class);
+		ftRouter.attach(base + "/clients/email/{email}/",ClientServerResource.class);
 		//RouteList list = new rout
 		//drouter.attach("/clients/{email}",ClientServerResource.class);
 		
 		// groups
+	}
+	
+	private void attachTutorialRouter() {
+		
+		String base = "/tt";
+
+		tutorialRouter = new Router();
+		
+		tutorialRouter.attach(base + "/{}",TestServerResource.class);
+		tutorialRouter.attach(base + "/{classname}",ConcreteServerResource.class);
 	}
 	
 	private Router createConfigRouter() {
