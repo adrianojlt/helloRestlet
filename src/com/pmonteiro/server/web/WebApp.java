@@ -8,6 +8,9 @@ import org.restlet.routing.Router;
 import org.restlet.routing.TemplateRoute;
 import org.restlet.util.RouteList;
 
+import pt.adrz.hellorestlet.resource.TodoResource;
+import pt.adrz.hellorestlet.resource.TodosResource;
+
 import com.pmonteiro.fasttrial.api.TestResource;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
 import com.pmonteiro.fasttrial.resource.ClientsServerResource;
@@ -23,6 +26,7 @@ public class WebApp extends Application {
 	private Router ftRouter;
 	private Router tutorialRouter;
 	private Router testRouter;
+	private Router todoRouter;
 	
 	public WebApp() { }
 	
@@ -44,9 +48,11 @@ public class WebApp extends Application {
 		attachFastTrialRouter();
 		attachTutorialRouter();
 		attachTestRouter();
-		
+		attachTodoRouter();
+
 		ftRouter.attachDefault(tutorialRouter);
 		tutorialRouter.attachDefault(testRouter);
+		testRouter.attachDefault(todoRouter);
 
 		return ftRouter;
 	}
@@ -114,6 +120,16 @@ public class WebApp extends Application {
 		
 		tutorialRouter.attach(base + "/{}",TestServerResource.class);
 		tutorialRouter.attach(base + "/{classname}",ConcreteServerResource.class);
+	}
+	
+	private void attachTodoRouter() {
+		
+		String base = "/todo";
+
+		todoRouter = new Router(this.getContext());
+		
+		todoRouter.attach( base + "/todos", TodosResource.class);
+		todoRouter.attach( base + "/todos/{todoId}", TodoResource.class);
 	}
 	
 	private Router createConfigRouter() {

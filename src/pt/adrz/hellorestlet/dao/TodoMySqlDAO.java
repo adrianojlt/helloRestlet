@@ -1,10 +1,20 @@
 package pt.adrz.hellorestlet.dao;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import java.sql.Connection;
+import com.pmonteiro.fasttrial.storage.ConnectionFactory;
 
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoMySqlDAO extends TodoDAOFactory {
+	
+	public TodoMySqlDAO() { }
+	
+	private static Connection getConnection() throws SQLException, ClassNotFoundException {
+		return ConnectionFactory.getInstance().getConnection();
+	}
 
 	@Override
 	public List<Todo> list() {
@@ -12,7 +22,7 @@ public class TodoMySqlDAO extends TodoDAOFactory {
 	}
 
 	@Override
-	public Todo get(Long id) {
+	public Todo get(Integer id) {
 		return null;
 	}
 
@@ -27,7 +37,7 @@ public class TodoMySqlDAO extends TodoDAOFactory {
 	}
 
 	@Override
-	public boolean delete(Long id) {
+	public boolean delete(Integer id) {
 		return false;
 	}
 

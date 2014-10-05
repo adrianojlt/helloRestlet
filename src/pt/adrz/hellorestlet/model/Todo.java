@@ -2,14 +2,14 @@ package pt.adrz.hellorestlet.model;
 
 public class Todo {
 
-	private Long 	id;
+	private Integer id;
     private String 	title;
     private String 	description;
     private boolean done;
 
     public Todo() { }
 
-    public Todo(Long id, String title, String description) {
+    public Todo(Integer id, String title, String description) {
 
         this.id = id;
         this.title = title;
@@ -17,8 +17,8 @@ public class Todo {
         this.done = false;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getDescription() { return description; }
@@ -31,6 +31,7 @@ public class Todo {
         if ( this == o ) return true;
         if ( o == null || getClass() != o.getClass() ) return false;
         Todo todo = (Todo) o;
+        //return this.id == todo.getId();
         return id.equals(todo.id);
     }
 

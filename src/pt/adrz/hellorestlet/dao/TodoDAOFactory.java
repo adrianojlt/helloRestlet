@@ -9,10 +9,10 @@ public abstract class TodoDAOFactory {
 	enum DAO_TYPE { STATIC,CACHE,MYSQL_JDBC,MYSQL_SPRING_JDBC }
 	
 	public abstract List<Todo> list();
-	public abstract Todo get(Long id);
+	public abstract Todo get(Integer id);
 	public abstract void create(Todo todo);
 	public abstract void update(Todo todo);
-	public abstract boolean delete(Long id);
+	public abstract boolean delete(Integer id);
 	
 	public static TodoDAOFactory getDAOFactory(DataType whichFactory) {
 

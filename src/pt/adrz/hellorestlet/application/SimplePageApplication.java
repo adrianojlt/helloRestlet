@@ -23,7 +23,7 @@ import pt.adrz.hellorestlet.resource.MainPageRestlet;
 import pt.adrz.hellorestlet.resource.RootResource;
 import pt.adrz.hellorestlet.resource.TmpRestlet;
 import pt.adrz.hellorestlet.resource.TodoResource;
-import pt.adrz.hellorestlet.resource.TodoResources;
+import pt.adrz.hellorestlet.resource.TodosResource;
 
 public class SimplePageApplication extends Application {
 	
@@ -117,7 +117,7 @@ public class SimplePageApplication extends Application {
 
 		// Todo app ...
 		router.attach("/rest/howto", new HowToRestlet());
-		router.attach("/rest/todos", TodoResources.class);
+		router.attach("/rest/todos", TodosResource.class);
 		router.attach("/rest/todos/{todoId}", TodoResource.class);
 		
 		return router;

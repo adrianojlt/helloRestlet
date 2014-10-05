@@ -19,11 +19,14 @@ public class MySqlImplClient extends FactoryClient {
 	private static final String QUERY_ALL_CLIENTS = 
 			"SELECT " + FIELDS + " FROM clients;";
 
+	private static final String QUERY_GET_CLIENTS_BY_ID = 
+			"SELECT " + FIELDS + " FROM clients WHERE id = ?;";
+
 	private static final String QUERY_GET_CLIENTS_BY_USER = 
 			"SELECT " + FIELDS + " FROM clients WHERE id_user = ?;";
 
 	private static final String QUERY_GET_CLIENTS_BY_EMAIL = 
-			"SELECT id, id_user, name, email FROM clients WHERE email = ?;";
+			"SELECT " + FIELDS + " FROM clients WHERE email = ?;";
 	
 	private static MySqlImplClient storage = null;
 	
@@ -124,7 +127,6 @@ public class MySqlImplClient extends FactoryClient {
 			rs = ps.executeQuery();
 			
 			if ( rs.next() ) { 
-
 				client.setId((rs.getLong("id")));
 				client.setName(rs.getString("name"));
 				client.setEmail(rs.getString("email"));
@@ -142,7 +144,34 @@ public class MySqlImplClient extends FactoryClient {
 
 	@Override
 	public Client get(Long id) {
-		return null;
+		
+		Client client = new Client();
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = getConnection();
+			ps = conn.prepareStatement(MySqlImplClient.QUERY_GET_CLIENTS_BY_ID);
+			ps.setLong(1,id);
+			rs = ps.executeQuery();
+			
+			if ( rs.next() ) { 
+				client.setId((rs.getLong("id")));
+				client.setName(rs.getString("name"));
+				client.setEmail(rs.getString("email"));
+			}
+			else 
+				client = null;
+		}
+		catch (SQLException eSQL) { eSQL.printStackTrace(); }
+		catch (NullPointerException eNull) { eNull.printStackTrace(); }
+		catch (Exception e) { e.printStackTrace(); }
+		finally { ConnectionFactory.close(rs, ps, conn); }
+
+		return client;
 	}
 
 	@Override

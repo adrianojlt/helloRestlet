@@ -1,3 +1,7 @@
+drop table if exists groups;
+drop table if exists users;
+drop table if exists clients;
+
 create table groups (
 	id int not null auto_increment,
 	name varchar(100) not null,
@@ -40,5 +44,10 @@ INSERT INTO clients ( id , id_user , name , email ) VALUES ( 3 , 5 , 'client3' ,
 INSERT INTO clients ( id , id_user , name , email ) VALUES ( 4 , 6 , 'client4' , 'client4@mail.com');
 INSERT INTO clients ( id , id_user , name , email ) VALUES ( 5 , 6 , 'client5' , 'client5@mail.com');
 
-
+create table todos (
+	id int not null auto_increment,
+	title varchar(30),
+	description varchar(100),
+	PRIMARY KEY(id)
+);
 

@@ -29,7 +29,7 @@ public class TodoResource extends WadlServerResource {
 
 	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(DataType.STATIC);
 	
-	private Long todoId;
+	private Integer todoId;
 	
 	@Override
 	protected Representation describe() {
@@ -51,39 +51,6 @@ public class TodoResource extends WadlServerResource {
         info.getResponse().getRepresentations().add(repInfo);
 	}
 
-	/*
-	@Override
-	protected void describe(ApplicationInfo applicationInfo) {
-
-		super.describe(applicationInfo);
-
-		RepresentationInfo rep = new RepresentationInfo(MediaType.TEXT_PLAIN);
-        rep.setIdentifier("Todo");
-        applicationInfo.getRepresentations().add(rep);
-
-        DocumentationInfo doc = new DocumentationInfo();
-        doc.setTitle("Todo");
-        doc.setTextContent("Simple TODO");
-        rep.getDocumentations().add(doc);
-	}
-	*/
-	
-	/*
-	@Override
-	protected RepresentationInfo describe( MethodInfo methodInfo, Class<?> representationClass, Variant variant) {
-	    RepresentationInfo result = super.describe(methodInfo, representationClass, variant);
-	    result.setReference("todo");
-	    return result;
-	    */
-	    //result.setMediaType(MediaType.TEXT_PLAIN);
-	    //result.setIdentifier("root");
-	    //DocumentationInfo doc = new DocumentationInfo();
-	    //doc.setTitle("Mail application");
-	    //doc.setTextContent("Simple string welcoming the user to the mail application");
-	    //result.getDocumentations().add(doc);
-	    //return result;
-	//}
-	
 	protected void doInit() throws ResourceException {
 
 
@@ -95,7 +62,7 @@ public class TodoResource extends WadlServerResource {
 		
 		if ( id == null) return;
 		
-		try { this.todoId = Long.valueOf(id); }
+		try { this.todoId = Integer.valueOf(id); }
 		catch(NumberFormatException e) {
 			throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
 		}

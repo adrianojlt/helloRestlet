@@ -19,7 +19,7 @@ import pt.adrz.hellorestlet.dao.DataType;
 import pt.adrz.hellorestlet.dao.TodoDAOFactory;
 import pt.adrz.hellorestlet.model.Todo;
 
-public class TodoResources extends WadlServerResource {
+public class TodosResource extends WadlServerResource {
 
 	private TodoDAOFactory content = TodoDAOFactory.getDAOFactory(DataType.STATIC);
 	

@@ -1,14 +1,11 @@
 package com.pmonteiro.fasttrial.resource;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
-import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;

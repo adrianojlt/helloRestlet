@@ -8,6 +8,7 @@ import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ResourceException;
+import org.restlet.resource.ServerResource;
 
 import com.pmonteiro.fasttrial.api.ClientsResource;
 import com.pmonteiro.fasttrial.model.Client;
@@ -15,7 +16,7 @@ import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;
 
-public class ClientsServerResource extends GenericResource implements ClientsResource {
+public class ClientsServerResource extends ServerResource implements ClientsResource {
 
 	private static String ID = "userid";
 	

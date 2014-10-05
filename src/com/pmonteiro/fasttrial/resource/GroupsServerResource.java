@@ -1,5 +1,7 @@
 package com.pmonteiro.fasttrial.resource;
 
-public class GroupsServerResource {
+import com.pmonteiro.server.web.GenericResource;
+
+public class GroupsServerResource extends GenericResource {
 
 }

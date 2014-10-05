@@ -5,6 +5,7 @@ import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ResourceException;
+import org.restlet.resource.ServerResource;
 
 import com.pmonteiro.fasttrial.api.ClientResource;
 import com.pmonteiro.fasttrial.model.Client;
@@ -12,7 +13,7 @@ import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;
 
-public class ClientServerResource extends GenericResource implements ClientResource {
+public class ClientServerResource extends ServerResource implements ClientResource {
 
 	private static String ID = "id";
 	private static String EMAIL = "email";
