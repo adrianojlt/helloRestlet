@@ -4,6 +4,7 @@ import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Restlet;
+import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.routing.TemplateRoute;
 import org.restlet.util.RouteList;
@@ -102,8 +103,8 @@ public class WebApp extends Application {
 		// clients
 		ftRouter.attach(base + "/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
 		ftRouter.attach(base + "/clients/",ClientsServerResource.class);
-		ftRouter.attach(base + "/clients/id/{id}",ClientServerResource.class);
-		ftRouter.attach(base + "/clients/id/{id}/",ClientServerResource.class);
+		ftRouter.attach(base + "/clients/{id}",ClientServerResource.class);
+		ftRouter.attach(base + "/clients/{id}/",ClientServerResource.class);
 		ftRouter.attach(base + "/clients/email/{email}",ClientServerResource.class);
 		ftRouter.attach(base + "/clients/email/{email}/",ClientServerResource.class);
 		//RouteList list = new rout
@@ -118,8 +119,8 @@ public class WebApp extends Application {
 
 		tutorialRouter = new Router();
 		
-		tutorialRouter.attach(base + "/{}",TestServerResource.class);
-		tutorialRouter.attach(base + "/{classname}",ConcreteServerResource.class);
+		tutorialRouter.attach(base + "",TestServerResource.class);
+		tutorialRouter.attach(base + "",ConcreteServerResource.class);
 	}
 	
 	private void attachTodoRouter() {
@@ -128,6 +129,10 @@ public class WebApp extends Application {
 
 		todoRouter = new Router(this.getContext());
 		
+        Directory directory = new Directory(getContext(), "clap://class/com/pmonteiro/fasttrial/ui/");
+        directory.setDeeplyAccessible(true);
+
+        todoRouter.attach( base + "/web", directory);
 		todoRouter.attach( base + "/todos", TodosResource.class);
 		todoRouter.attach( base + "/todos/{todoId}", TodoResource.class);
 	}

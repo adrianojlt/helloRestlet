@@ -13,7 +13,9 @@ public class WebMain {
     	c.getServers().add(Protocol.HTTP,9000);
     	c.getClients().add(Protocol.CLAP);
     	
+    	
         //c.getLogService().setLogPropertiesRef("clap:///logging.properties");
+        c.getLogService().setLogPropertiesRef("clap://class/com/pmonteiro/server/config/logging.properties");
 
     	VirtualHost host = c.getDefaultHost();
 

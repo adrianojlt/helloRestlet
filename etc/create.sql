@@ -44,10 +44,41 @@ INSERT INTO clients ( id , id_user , name , email ) VALUES ( 3 , 5 , 'client3' ,
 INSERT INTO clients ( id , id_user , name , email ) VALUES ( 4 , 6 , 'client4' , 'client4@mail.com');
 INSERT INTO clients ( id , id_user , name , email ) VALUES ( 5 , 6 , 'client5' , 'client5@mail.com');
 
+-- TODOS
+
 create table todos (
 	id int not null auto_increment,
 	title varchar(30),
 	description varchar(100),
 	PRIMARY KEY(id)
 );
+
+-- TUTORIAL TABLES
+
+DROP table IF EXISTS Contact;
+DROP table IF EXISTS Company;
+
+CREATE TABLE Company (
+    id INT NOT NULL AUTO_INCREMENT, 
+    duns VARCHAR(9) UNIQUE,
+    name VARCHAR(255),
+    address VARCHAR(255), 
+    zip_code VARCHAR(5), 
+    company_creation Date, 
+    website VARCHAR(255), 
+    phone_number VARCHAR(255), 
+    city VARCHAR(255), 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE Contact (
+    id VARCHAR(255), 
+    email VARCHAR (255) NOT NULL UNIQUE,
+    age INT,
+    name VARCHAR (255),
+    firstname VARCHAR (255),
+    company_id INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY (company_id) REFERENCES Company(id)
+); 
 
