@@ -7,8 +7,9 @@ import org.restlet.security.User;
 
 import com.pmonteiro.fasttrial.model.Status;
 import com.pmonteiro.fasttrial.model.Study;
+import com.pmonteiro.fasttrial.model.accounts.UserType;
 
-public class UserAccount extends User {
+public class UserServer extends User {
 
 	private Long id;
 	private String username;
@@ -27,11 +28,8 @@ public class UserAccount extends User {
 	private Date dateLastVisited;
 	
 	private Status statuses;
-	private UserType userType;
 	
-	private Collection<Study> studies;
-	
-	public UserAccount() {
+	public UserServer() {
 		
 	}
 	

@@ -3,20 +3,20 @@ package com.pmonteiro.server.models;
 import java.util.Collection;
 import org.restlet.security.*;
 
-public class UserRole extends Role{
+public class RoleServer extends Role{
 	
 	public enum ROLES {}
 
 	private String name;
 	private String description;
 	
-	private UserRole children;
+	private RoleServer children;
 
 	Collection<Privilege> privileges;
 	
-	public UserRole() { }
+	public RoleServer() { }
 	
-	public static UserRole getInstance() {
-		return new UserRole();
+	public static RoleServer getInstance() {
+		return new RoleServer();
 	}
 }

@@ -7,5 +7,5 @@ public class Privilege {
 	private String name;
 	private String description;
 	
-	Collection<UserRole> userRoles;
+	Collection<RoleServer> userRoles;
 }

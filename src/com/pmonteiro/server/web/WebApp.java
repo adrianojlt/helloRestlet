@@ -43,6 +43,9 @@ public class WebApp extends Application {
 		this.loadConfig();
 		this.loadClasses();
 		
+		// security
+		
+		
 		// filters 
 		
 		// routes

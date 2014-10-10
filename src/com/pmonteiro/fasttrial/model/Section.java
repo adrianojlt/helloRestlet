@@ -2,7 +2,7 @@ package com.pmonteiro.fasttrial.model;
 
 import java.util.Date;
 
-import com.pmonteiro.server.models.UserAccount;
+import com.pmonteiro.server.models.UserServer;
 
 public class Section {
 
@@ -20,7 +20,7 @@ public class Section {
 
 	private CrfVersion crfVersion;
 	private Status status;
-	private UserAccount userAccount;
+	private UserServer userAccount;
 	//private List<> itemFormMetadatas;
 
 }
