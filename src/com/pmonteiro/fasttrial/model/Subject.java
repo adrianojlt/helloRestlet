@@ -2,7 +2,7 @@ package com.pmonteiro.fasttrial.model;
 
 import java.util.Date;
 
-import com.pmonteiro.fasttrial.model.accounts.UserAccount;
+import com.pmonteiro.server.models.UserAccount;
 
 public class Subject {
 

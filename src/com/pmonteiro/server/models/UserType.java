@@ -1,4 +1,4 @@
-package com.pmonteiro.fasttrial.model.accounts;
+package com.pmonteiro.server.models;
 
 import java.util.Collection;
 

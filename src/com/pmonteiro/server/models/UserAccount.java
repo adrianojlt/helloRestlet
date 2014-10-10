@@ -1,17 +1,17 @@
-package com.pmonteiro.fasttrial.model.accounts;
+package com.pmonteiro.server.models;
 
 import java.util.Collection;
 import java.util.Date;
 
+import org.restlet.security.User;
+
 import com.pmonteiro.fasttrial.model.Status;
 import com.pmonteiro.fasttrial.model.Study;
 
-public class UserAccount extends UserRole {
+public class UserAccount extends User {
 
 	private Long id;
 	private String username;
-	private String email;
-	private String fullName;
 	private String password;
 	private String passwdTimestamp;
 	private String passwdChallengeQuestion;
