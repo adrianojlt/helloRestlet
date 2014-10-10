@@ -1,4 +1,4 @@
-package com.pmonteiro.fasttrial.api;
+package com.pmonteiro.fasttrial.model;
 
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;

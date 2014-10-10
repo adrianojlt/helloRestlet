@@ -1,9 +1,14 @@
-package com.pmonteiro.server.models;
+package com.pmonteiro.fasttrial.model.accounts;
 
+import java.util.Collection;
 import java.util.Date;
 
-public class UserAccount {
+import com.pmonteiro.fasttrial.model.Status;
+import com.pmonteiro.fasttrial.model.Study;
 
+public class UserAccount extends UserRole {
+
+	private Long id;
 	private String username;
 	private String email;
 	private String fullName;
@@ -23,6 +28,12 @@ public class UserAccount {
 	
 	private Status statuses;
 	private UserType userType;
+	
+	private Collection<Study> studies;
+	
+	public UserAccount() {
+		
+	}
 	
 	//public UserAccount(String username) { }
 }

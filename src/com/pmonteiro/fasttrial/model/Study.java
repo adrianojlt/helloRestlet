@@ -1,8 +1,12 @@
 package com.pmonteiro.fasttrial.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.pmonteiro.server.models.UserAccount;
+import com.pmonteiro.fasttrial.model.accounts.UserAccount;
+import com.pmonteiro.fasttrial.model.accounts.UserRole;
 
 public class Study {
 	
@@ -63,5 +67,16 @@ public class Study {
 	
 	private Study parent;
 	private UserAccount owner;
+	private List<CRF> crfs;
+	private Map<UserAccount, UserRole> users;
+	
+	public Study() {
+		this.users = new HashMap<UserAccount,UserRole>();
+	}
+
+	public UserAccount getUsers(UserRole role) {
+		// users.
+		return null;
+	}
 
 }

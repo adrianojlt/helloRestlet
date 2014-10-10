@@ -6,7 +6,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 
-import com.pmonteiro.fasttrial.model.Client;
+import com.pmonteiro.fasttrial.model.test.Client;
 import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;

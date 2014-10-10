@@ -12,7 +12,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.pmonteiro.fasttrial.model.User;
+import com.pmonteiro.fasttrial.model.test.User;
 import com.pmonteiro.fasttrial.api.UsersResource;
 import com.pmonteiro.fasttrial.storage.FactoryUser;
 import com.pmonteiro.fasttrial.storage.StorageType;

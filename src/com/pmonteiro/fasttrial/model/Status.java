@@ -1,10 +1,8 @@
 package com.pmonteiro.fasttrial.model;
 
-public class CRF {
+public class Status {
 	
 	private String name;
-	
-	private Study study;
-
+	private String description;
 
 }

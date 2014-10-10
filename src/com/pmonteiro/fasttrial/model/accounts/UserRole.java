@@ -1,8 +1,11 @@
-package com.pmonteiro.server.models;
+package com.pmonteiro.fasttrial.model.accounts;
 
 import java.util.Collection;
+import org.restlet.security.*;
 
-public class UserRole {
+public class UserRole extends Role{
+	
+	public enum ROLES {}
 
 	private String name;
 	private String description;
@@ -11,9 +14,7 @@ public class UserRole {
 
 	Collection<Privilege> privileges;
 	
-	public UserRole() {
-		
-	}
+	public UserRole() { }
 	
 	public static UserRole getInstance() {
 		return new UserRole();

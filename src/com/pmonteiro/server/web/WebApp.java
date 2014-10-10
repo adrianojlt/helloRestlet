@@ -82,7 +82,7 @@ public class WebApp extends Application {
 		//drouter.attach("/{classname}",ClientsServerResource.class);
 	}
 	
-	private void attachFastTrialRouter() {
+	private Router attachFastTrialRouter() {
 		
 		String base = "/ft";
 
@@ -111,6 +111,8 @@ public class WebApp extends Application {
 		//drouter.attach("/clients/{email}",ClientServerResource.class);
 		
 		// groups
+		
+		return ftRouter;
 	}
 	
 	private void attachTutorialRouter() {

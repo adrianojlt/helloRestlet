@@ -11,7 +11,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import com.pmonteiro.fasttrial.api.ClientsResource;
-import com.pmonteiro.fasttrial.model.Client;
+import com.pmonteiro.fasttrial.model.test.Client;
 import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;

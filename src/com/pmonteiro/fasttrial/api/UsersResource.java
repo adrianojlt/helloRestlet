@@ -8,7 +8,7 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 
-import com.pmonteiro.fasttrial.model.User;
+import com.pmonteiro.fasttrial.model.test.User;
 
 public interface UsersResource {
 	

@@ -3,8 +3,8 @@ package com.pmonteiro.fasttrial.storage;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.Client;
-import com.pmonteiro.fasttrial.model.User;
+import com.pmonteiro.fasttrial.model.test.Client;
+import com.pmonteiro.fasttrial.model.test.User;
 
 public abstract class FactoryUser {
 	

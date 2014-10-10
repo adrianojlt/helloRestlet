@@ -1,4 +1,4 @@
-package com.pmonteiro.fasttrial.model;
+package com.pmonteiro.fasttrial.model.test;
 
 import java.util.List;
 

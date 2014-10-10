@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.Client;
-import com.pmonteiro.fasttrial.model.User;
+import com.pmonteiro.fasttrial.model.test.Client;
+import com.pmonteiro.fasttrial.model.test.User;
 
 public class MySqlImplUser extends FactoryUser {
 	
