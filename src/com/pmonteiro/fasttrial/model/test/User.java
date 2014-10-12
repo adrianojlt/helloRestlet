@@ -43,4 +43,9 @@ public class User implements JSONString {
 	public String toJSONString() {
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }

@@ -128,4 +128,18 @@ public class MySqlImplUser extends FactoryUser {
 	public List<Client> listClients(Long userId) {
 		return null;
 	}
+
+	@Override
+	public User get(User user) { return null; }
+
+	@Override
+	public boolean exists(User user) {
+		return false;
+	}
+
+	@Override
+	public void tmp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

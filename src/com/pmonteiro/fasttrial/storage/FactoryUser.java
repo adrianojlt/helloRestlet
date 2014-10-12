@@ -10,11 +10,14 @@ public abstract class FactoryUser {
 	
 	public abstract List<User> list();
 	public abstract User get(Long id);
+	public abstract User get(User user);
 	public abstract User get(String email);
+	public abstract boolean exists(User user);
 	public abstract boolean create(User user) throws SQLException, Exception;
 	public abstract void update(User user);
 	public abstract boolean delete(Long id);
 	public abstract List<Client> listClients(Long userId);
+	public abstract void tmp();
 	
 	public static FactoryUser getUserStorage(StorageType whichFactory) {
 
@@ -23,6 +26,7 @@ public abstract class FactoryUser {
 			case CACHE: 				return null;
 			case MYSQL_JDBC: 			return new MySqlImplUser();
 			case MYSQL_SPRING_JDBC: 	return null;
+			case DB4O: 					return new Db4oImplUser();
 			default: return null;
 		}	
 	}
