@@ -1,6 +1,8 @@
 package com.pmonteiro.server.web;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.restlet.Application;
 import org.restlet.Restlet;
@@ -9,8 +11,10 @@ import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.MemoryRealm;
+import org.restlet.security.MethodAuthorizer;
 import org.restlet.security.Realm;
 import org.restlet.security.Role;
+import org.restlet.security.RoleAuthorizer;
 
 import pt.adrz.hellorestlet.resource.TodoResource;
 import pt.adrz.hellorestlet.resource.TodosResource;
@@ -19,6 +23,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.pmonteiro.fasttrial.model.accounts.UserAccount;
+import com.pmonteiro.fasttrial.model.accounts.UserType;
 import com.pmonteiro.fasttrial.model.test.User;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
 import com.pmonteiro.fasttrial.resource.ClientsServerResource;
@@ -41,7 +46,15 @@ public class WebApp extends Application {
 	private Router testRouter;
 	private Router todoRouter;
 	
-	public WebApp() { }
+	public WebApp() {
+
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(new Role(this, "root"));
+		roles.add(new Role(this, "badmin"));
+		roles.add(new Role(this, "tadmin"));
+		roles.add(new Role(this, "user"));
+		setRoles(roles);
+	}
 	
 	private void loadClasses() { }
 	
@@ -151,33 +164,56 @@ public class WebApp extends Application {
 		
 		String base = "/ft";
 		
-		ChallengeAuthenticator apiGuard = new ChallengeAuthenticator( getContext(), ChallengeScheme.HTTP_BASIC, "realm");
 		
 		// roles ( load from UserType )
 		String ROOT_TYPE 	= "root";
 		String TADMIN_TYPE 	= "tadmin";
 		String BADMIN_TYPE 	= "badmin";
-		String USER_TYPE 	= "tadmin";
+		String USER_TYPE 	= "user";
 
-		// create user
+		// create users
 		UserAccount root = new UserAccount("root","root");
+		UserAccount adriano = new UserAccount("adriano","adriano");
+		UserAccount rodrigo = new UserAccount("rodrigo","rodrigo");
+		
+		// groups ...
+		UserType rootGroup = new UserType();
+		UserType tadminGroup = new UserType();
+		rootGroup.getMemberUsers().add(root);
+		tadminGroup.getMemberUsers().add(adriano);
+		tadminGroup.getMemberUsers().add(rodrigo);
 
 		MemoryRealm mRealm = new MemoryRealm();
+		mRealm.getRootGroups().add(rootGroup);
+		mRealm.map(rootGroup, this.getRole(ROOT_TYPE));
+		
+		/*
 		mRealm.getUsers().add(root);
-		mRealm.map(root, Role.get(this, ROOT_TYPE));
-		mRealm.map(root, Role.get(this, TADMIN_TYPE));
-		mRealm.map(root, Role.get(this, BADMIN_TYPE));
-		mRealm.map(root, Role.get(this, USER_TYPE));
+		mRealm.map(root,this.getRole(ROOT_TYPE));
+		mRealm.map(root,this.getRole(TADMIN_TYPE));
+		mRealm.map(root,this.getRole(BADMIN_TYPE));
+		mRealm.map(root,this.getRole(USER_TYPE));
+		*/
+
+		// Authenticator
+		ChallengeAuthenticator authenticator = new ChallengeAuthenticator( getContext(), ChallengeScheme.HTTP_BASIC, "realm");
+		authenticator.setVerifier(mRealm.getVerifier());
+		authenticator.setEnroler(mRealm.getEnroler());
+		
+		// Authorizer
+		RoleAuthorizer authorizer = new RoleAuthorizer();
+		authorizer.getAuthorizedRoles().add(this.getRole(ROOT_TYPE));
+
+		//MethodAuthorizer methodAuth = new MethodAuthorizer();
 
 		ftRouter = new Router(getContext());
-		
 		ftRouter.attach(base + "/users",UsersAccountServerResource.class);
 		ftRouter.attach(base + "/users/",UsersAccountServerResource.class);
 		ftRouter.attach(base + "/users/{id}",UserAccountServerResource.class);
 		
-		apiGuard.setNext(ftRouter);
-		//return null;
-		return ftRouter;
+		authenticator.setNext(authorizer);
+		authorizer.setNext(ftRouter);
+		return authenticator;
 	}
 	
 	private void attachTutorialRouter() {
