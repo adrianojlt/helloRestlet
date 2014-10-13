@@ -2,11 +2,11 @@ package com.pmonteiro.fasttrial.model;
 
 import java.util.Date;
 
-import com.pmonteiro.server.models.UserServer;
+import com.pmonteiro.fasttrial.model.accounts.UserAccount;
 
 public class Subject {
 
-	private UserServer userAccount;
+	private UserAccount userAccount;
 	private Date dateOfBirth;
 	private Character gender;
 	private String uniqueIdentifier;

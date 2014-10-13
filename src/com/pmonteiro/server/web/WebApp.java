@@ -4,8 +4,13 @@ import java.io.File;
 
 import org.restlet.Application;
 import org.restlet.Restlet;
+import org.restlet.data.ChallengeScheme;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
+import org.restlet.security.ChallengeAuthenticator;
+import org.restlet.security.MemoryRealm;
+import org.restlet.security.Realm;
+import org.restlet.security.Role;
 
 import pt.adrz.hellorestlet.resource.TodoResource;
 import pt.adrz.hellorestlet.resource.TodosResource;
@@ -13,6 +18,7 @@ import pt.adrz.hellorestlet.resource.TodosResource;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.pmonteiro.fasttrial.model.accounts.UserAccount;
 import com.pmonteiro.fasttrial.model.test.User;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
 import com.pmonteiro.fasttrial.resource.ClientsServerResource;
@@ -20,10 +26,15 @@ import com.pmonteiro.fasttrial.resource.ConcreteServerResource;
 import com.pmonteiro.fasttrial.resource.TestServerResource;
 import com.pmonteiro.fasttrial.resource.UserServerResource;
 import com.pmonteiro.fasttrial.resource.UsersServerResource;
+import com.pmonteiro.fasttrial.resource.accounts.UserAccountServerResource;
+import com.pmonteiro.fasttrial.resource.accounts.UsersAccountServerResource;
 
 public class WebApp extends Application {
 	
 	private ConfigFactory config;
+
+		
+	ChallengeAuthenticator apiGuardFtRouter;
 	
 	private Router ftRouter;
 	private Router tutorialRouter;
@@ -105,45 +116,67 @@ public class WebApp extends Application {
 
 		testRouter = new Router();
 		
-		testRouter.attach(base + "/{test}",TestServerResource.class);
-		testRouter.attach(base + "/{classname}",ConcreteServerResource.class);
+		//testRouter.attach(base + "/{test}",TestServerResource.class);
+		//testRouter.attach(base + "/{classname}",ConcreteServerResource.class);
 		testRouter.attach(base + "/db4o",TestServerResource.class);
+		
+		// users
+		testRouter.attach(base + "/users",UsersServerResource.class);
+		testRouter.attach(base + "/users/",UsersServerResource.class);
+		testRouter.attach(base + "/users/{userid}",UserServerResource.class);
+		testRouter.attach(base + "/users/{userid}/clients",ClientsServerResource.class);
+		testRouter.attach(base + "/users/{userid}/clients/",ClientsServerResource.class);
+		testRouter.attach(base + "/users/{userid}/clients/{email}",ClientsServerResource.class);
+		testRouter.attach(base + "/users/{userid}/clients/{email}/",ClientsServerResource.class);
+		//drouter.attach(base + "/users/{email}",UserServerResource.class);
+		//drouter.attach(base + "/users/{id}/clients",UserServerResource.class);
+		//drouter.attach(base + "/users/{email}/clients",UserServerResource.class);
+		
+		// clients
+		testRouter.attach(base + "/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
+		testRouter.attach(base + "/clients/",ClientsServerResource.class);
+		testRouter.attach(base + "/clients/{id}",ClientServerResource.class);
+		testRouter.attach(base + "/clients/{id}/",ClientServerResource.class);
+		testRouter.attach(base + "/clients/email/{email}",ClientServerResource.class);
+		testRouter.attach(base + "/clients/email/{email}/",ClientServerResource.class);
+		//RouteList list = new rout
+		//drouter.attach("/clients/{email}",ClientServerResource.class);
 		
 		testRouter.attachDefault(TestServerResource.class);
 		//drouter.attach("/{classname}",UsersServerResource.class);
 		//drouter.attach("/{classname}",ClientsServerResource.class);
 	}
 	
-	private Router attachFastTrialRouter() {
+	private Restlet attachFastTrialRouter() {
 		
 		String base = "/ft";
+		
+		ChallengeAuthenticator apiGuard = new ChallengeAuthenticator( getContext(), ChallengeScheme.HTTP_BASIC, "realm");
+		
+		// roles ( load from UserType )
+		String ROOT_TYPE 	= "root";
+		String TADMIN_TYPE 	= "tadmin";
+		String BADMIN_TYPE 	= "badmin";
+		String USER_TYPE 	= "tadmin";
+
+		// create user
+		UserAccount root = new UserAccount("root","root");
+
+		MemoryRealm mRealm = new MemoryRealm();
+		mRealm.getUsers().add(root);
+		mRealm.map(root, Role.get(this, ROOT_TYPE));
+		mRealm.map(root, Role.get(this, TADMIN_TYPE));
+		mRealm.map(root, Role.get(this, BADMIN_TYPE));
+		mRealm.map(root, Role.get(this, USER_TYPE));
 
 		ftRouter = new Router(getContext());
 		
-		// users
-		ftRouter.attach(base + "/users",UsersServerResource.class);
-		ftRouter.attach(base + "/users/",UsersServerResource.class);
-		ftRouter.attach(base + "/users/{userid}",UserServerResource.class);
-		ftRouter.attach(base + "/users/{userid}/clients",ClientsServerResource.class);
-		ftRouter.attach(base + "/users/{userid}/clients/",ClientsServerResource.class);
-		ftRouter.attach(base + "/users/{userid}/clients/{email}",ClientsServerResource.class);
-		ftRouter.attach(base + "/users/{userid}/clients/{email}/",ClientsServerResource.class);
-		//drouter.attach(base + "/users/{email}",UserServerResource.class);
-		//drouter.attach(base + "/users/{id}/clients",UserServerResource.class);
-		//drouter.attach(base + "/users/{email}/clients",UserServerResource.class);
+		ftRouter.attach(base + "/users",UsersAccountServerResource.class);
+		ftRouter.attach(base + "/users/",UsersAccountServerResource.class);
+		ftRouter.attach(base + "/users/{id}",UserAccountServerResource.class);
 		
-		// clients
-		ftRouter.attach(base + "/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
-		ftRouter.attach(base + "/clients/",ClientsServerResource.class);
-		ftRouter.attach(base + "/clients/{id}",ClientServerResource.class);
-		ftRouter.attach(base + "/clients/{id}/",ClientServerResource.class);
-		ftRouter.attach(base + "/clients/email/{email}",ClientServerResource.class);
-		ftRouter.attach(base + "/clients/email/{email}/",ClientServerResource.class);
-		//RouteList list = new rout
-		//drouter.attach("/clients/{email}",ClientServerResource.class);
-		
-		// groups
-		
+		apiGuard.setNext(ftRouter);
+		//return null;
 		return ftRouter;
 	}
 	

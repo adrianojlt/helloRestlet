@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.pmonteiro.server.models.UserServer;
-import com.pmonteiro.server.models.RoleServer;
+import com.pmonteiro.fasttrial.model.accounts.UserAccount;
+import com.pmonteiro.fasttrial.model.accounts.UserRole;
 
 public class Study {
 	
@@ -66,17 +66,16 @@ public class Study {
 	
 	
 	private Study parent;
-	private UserServer owner;
+	private UserAccount owner;
 	private List<CRF> crfs;
-	private Map<UserServer, RoleServer> users;
+	private Map<UserAccount, UserRole> users;
 	
 	public Study() {
-		this.users = new HashMap<UserServer,RoleServer>();
+		this.users = new HashMap<UserAccount,UserRole>();
 	}
 
-	public UserServer getUsers(RoleServer role) {
+	public UserAccount getUsers(UserRole role) {
 		// users.
 		return null;
 	}
-
 }
