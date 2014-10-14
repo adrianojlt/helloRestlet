@@ -1,11 +1,18 @@
 package com.pmonteiro.server.web;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
+import org.restlet.data.LocalReference;
+import org.restlet.data.Reference;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
@@ -20,6 +27,7 @@ import pt.adrz.hellorestlet.resource.TodosResource;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.fasterxml.jackson.dataformat.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 import com.pmonteiro.fasttrial.model.accounts.UserAccount;
 import com.pmonteiro.fasttrial.model.accounts.UserType;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
@@ -30,6 +38,7 @@ import com.pmonteiro.fasttrial.resource.UserServerResource;
 import com.pmonteiro.fasttrial.resource.UsersServerResource;
 import com.pmonteiro.fasttrial.resource.accounts.UserAccountServerResource;
 import com.pmonteiro.fasttrial.resource.accounts.UsersAccountServerResource;
+import com.thoughtworks.xstream.core.util.CompositeClassLoader;
 
 public class WebApp extends Application {
 	
@@ -272,11 +281,23 @@ public class WebApp extends Application {
 	private void attachTodoRouter() {
 		
 		String base = "/todo";
+		
+		String url1 = "clap://com/pmonteiro/fasttrial/ui/";
+		String url2 = "clap://class/com/pmonteiro/fasttrial/ui/";
+		String url3 = "/src/com/pmonteiro/fasttrial/ui/";
+
+        Directory directory = new Directory(getContext(), url2);
+        directory.setListingAllowed(true);
+        directory.setDeeplyAccessible(true);
+        
+        LocalReference localReference = LocalReference.createClapReference(LocalReference.CLAP_THREAD, "/src/com/pmonteiro/fasttrial/ui/");
+        CompositeClassLoader compositeCL = new CompositeClassLoader();
+        compositeCL.addClassLoader(Thread.currentThread().getContextClassLoader());
+        compositeCL.addClassLoader(Router.class.getClassLoader());
+        
+        ClassLoaderDirectory dir = new ClassLoaderDirectory(getContext(),localReference,compositeCL);
 
 		todoRouter = new Router(this.getContext());
-		
-        Directory directory = new Directory(getContext(), "clap://class/com/pmonteiro/fasttrial/ui/");
-        directory.setDeeplyAccessible(true);
 
         todoRouter.attach( base + "/web", directory);
 		todoRouter.attach( base + "/todos", TodosResource.class);
@@ -289,5 +310,60 @@ public class WebApp extends Application {
 	
 	private Router createApiRouter() {
 		return null;
+	}
+	
+	public class ClassLoaderDirectory extends Directory {
+
+        private ClassLoader _cl;
+
+        public ClassLoaderDirectory(Context context, Reference rootLocalReference, ClassLoader cl) {
+	        super(context, rootLocalReference);
+	        this._cl = cl;
+        }
+
+        @Override
+        public void handle(Request request, Response response) {
+	        final ClassLoader saveCL = Thread.currentThread().getContextClassLoader();
+	        Thread.currentThread().setContextClassLoader(_cl);
+	        super.handle(request, response);
+	        Thread.currentThread().setContextClassLoader(saveCL);
+        }
+	}
+	
+	
+	private static class CompositeClassLoader extends ClassLoader {
+		
+		private Vector<ClassLoader> classLoaders = new Vector<ClassLoader>();
+
+	   @Override
+	   public URL getResource(String name) {
+	           for (ClassLoader cl : classLoaders) {
+	
+	                   URL resource = cl.getResource(name);
+	                   if (resource != null)
+	                            return resource;
+	
+	           }
+	
+	           return null;
+	   	}
+
+        @Override
+   		public Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+
+	        for (ClassLoader cl : classLoaders) {
+	        	try {
+	        		return cl.loadClass(name);
+	        	} catch (ClassNotFoundException ex) {
+	
+	        	}
+	        }
+        
+        	throw new ClassNotFoundException(name);
+        }
+
+		public void addClassLoader(ClassLoader cl) {
+			classLoaders.add(cl);
+		}
 	}
 }
