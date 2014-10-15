@@ -1,4 +1,4 @@
-package pt.adrz.hellorestlet.resource;
+package pt.adrz.hellorestlet.resource.todo;
 
 import java.io.IOException;
 

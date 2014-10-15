@@ -3,7 +3,7 @@ package com.pmonteiro.fasttrial.storage;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.test.Client;
+import pt.adrz.hellorestlet.model.Client;
 
 public abstract class FactoryClient {
 	

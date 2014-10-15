@@ -22,8 +22,8 @@ import pt.adrz.hellorestlet.resource.HowToRestlet;
 import pt.adrz.hellorestlet.resource.MainPageRestlet;
 import pt.adrz.hellorestlet.resource.RootResource;
 import pt.adrz.hellorestlet.resource.TmpRestlet;
-import pt.adrz.hellorestlet.resource.TodoResource;
-import pt.adrz.hellorestlet.resource.TodosResource;
+import pt.adrz.hellorestlet.resource.todo.TodoResource;
+import pt.adrz.hellorestlet.resource.todo.TodosResource;
 
 public class SimplePageApplication extends Application {
 	

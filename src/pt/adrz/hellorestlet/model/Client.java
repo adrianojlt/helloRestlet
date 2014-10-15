@@ -1,4 +1,4 @@
-package com.pmonteiro.fasttrial.model.test;
+package pt.adrz.hellorestlet.model;
 
 public class Client {
 	

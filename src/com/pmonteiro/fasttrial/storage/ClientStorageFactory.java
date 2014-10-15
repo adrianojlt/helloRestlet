@@ -2,9 +2,8 @@ package com.pmonteiro.fasttrial.storage;
 
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.test.Client;
-
 import pt.adrz.hellorestlet.dao.DataType;
+import pt.adrz.hellorestlet.model.Client;
 
 public abstract class ClientStorageFactory {
 

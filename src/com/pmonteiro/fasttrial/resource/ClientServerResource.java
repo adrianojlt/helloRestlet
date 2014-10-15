@@ -7,8 +7,9 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import pt.adrz.hellorestlet.model.Client;
+
 import com.pmonteiro.fasttrial.model.ClientResource;
-import com.pmonteiro.fasttrial.model.test.Client;
 import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;
