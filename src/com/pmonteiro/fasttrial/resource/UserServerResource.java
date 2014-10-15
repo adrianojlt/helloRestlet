@@ -8,7 +8,8 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import com.pmonteiro.fasttrial.model.test.User;
+import pt.adrz.hellorestlet.model.User;
+
 import com.pmonteiro.fasttrial.api.UserResource;
 import com.pmonteiro.fasttrial.storage.StorageFactory;
 import com.pmonteiro.fasttrial.storage.StorageFactory.STORAGE_TYPE;

@@ -3,8 +3,8 @@ package com.pmonteiro.fasttrial.storage;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.test.Client;
-import com.pmonteiro.fasttrial.model.test.User;
+import pt.adrz.hellorestlet.model.Client;
+import pt.adrz.hellorestlet.model.User;
 
 public abstract class StorageFactory<T> {
 

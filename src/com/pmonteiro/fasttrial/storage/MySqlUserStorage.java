@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pmonteiro.fasttrial.model.test.Client;
-import com.pmonteiro.fasttrial.model.test.User;
+import pt.adrz.hellorestlet.model.Client;
+import pt.adrz.hellorestlet.model.User;
 
 public class MySqlUserStorage extends StorageFactory<User> {
 	

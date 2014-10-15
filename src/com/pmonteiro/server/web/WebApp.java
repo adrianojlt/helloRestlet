@@ -15,19 +15,21 @@ import org.restlet.data.LocalReference;
 import org.restlet.data.Reference;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
+import org.restlet.routing.TemplateRoute;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.MemoryRealm;
 import org.restlet.security.Role;
 import org.restlet.security.RoleAuthorizer;
 import org.restlet.security.User;
+import org.restlet.util.RouteList;
 
-import pt.adrz.hellorestlet.resource.TodoResource;
-import pt.adrz.hellorestlet.resource.TodosResource;
+import pt.adrz.hellorestlet.resource.FirstRestlet;
+import pt.adrz.hellorestlet.resource.todo.TodoResource;
+import pt.adrz.hellorestlet.resource.todo.TodosResource;
 
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 import com.pmonteiro.fasttrial.model.accounts.UserAccount;
 import com.pmonteiro.fasttrial.model.accounts.UserType;
 import com.pmonteiro.fasttrial.resource.ClientServerResource;
@@ -38,7 +40,6 @@ import com.pmonteiro.fasttrial.resource.UserServerResource;
 import com.pmonteiro.fasttrial.resource.UsersServerResource;
 import com.pmonteiro.fasttrial.resource.accounts.UserAccountServerResource;
 import com.pmonteiro.fasttrial.resource.accounts.UsersAccountServerResource;
-import com.thoughtworks.xstream.core.util.CompositeClassLoader;
 
 public class WebApp extends Application {
 	
@@ -52,8 +53,6 @@ public class WebApp extends Application {
 
 	private Router ftRouter;
 	private Router tutorialRouter;
-	private Router testRouter;
-	private Router todoRouter;
 
 	private ChallengeAuthenticator authenticator;
 	private RoleAuthorizer authorizer;
@@ -120,7 +119,7 @@ public class WebApp extends Application {
 		//new File("users.data").delete();
 		db = Db4o.openFile("users.data");
 		
-		com.pmonteiro.fasttrial.model.test.User user = new com.pmonteiro.fasttrial.model.test.User();
+		pt.adrz.hellorestlet.model.User user = new pt.adrz.hellorestlet.model.User();
 		user.setName("john");
 		//db.set(user);
 		db.delete(user);
@@ -132,7 +131,7 @@ public class WebApp extends Application {
 
 		ObjectContainer db = Db4o.openFile("users.data");
 		
-		com.pmonteiro.fasttrial.model.test.User  user = new com.pmonteiro.fasttrial.model.test.User();
+		pt.adrz.hellorestlet.model.User  user = new pt.adrz.hellorestlet.model.User();
 		user.setName("john");
 		
 		ObjectSet os = db.get(user);
@@ -156,18 +155,15 @@ public class WebApp extends Application {
 		// routes
 		attachFastTrialRouter();
 		attachTutorialRouter();
-		attachTestRouter();
-		attachTodoRouter();
+		
 
 		// chain ...
-		testRouter.attachDefault(tutorialRouter);
-		tutorialRouter.attachDefault(todoRouter);
-		todoRouter.attachDefault(authenticator);
+		tutorialRouter.attachDefault(authenticator);
 		authenticator.setNext(this.authorizer);
 		authorizer.setNext(ftRouter);
 		//ftRouter.attachDefault(testRouter);
 		
-		return testRouter;
+		return tutorialRouter;
 	}
 
 
@@ -216,52 +212,36 @@ public class WebApp extends Application {
 		//MethodAuthorizer methodAuth = new MethodAuthorizer();
 	}
 	
-	private void attachTestRouter() {
-
-		String base = "/test";
-
-		testRouter = new Router();
-		
-		//testRouter.attach(base + "/{test}",TestServerResource.class);
-		//testRouter.attach(base + "/{classname}",ConcreteServerResource.class);
-		testRouter.attach(base + "/db4o",TestServerResource.class);
-		
-		// users
-		testRouter.attach(base + "/users",UsersServerResource.class);
-		testRouter.attach(base + "/users/",UsersServerResource.class);
-		testRouter.attach(base + "/users/{userid}",UserServerResource.class);
-		testRouter.attach(base + "/users/{userid}/clients",ClientsServerResource.class);
-		testRouter.attach(base + "/users/{userid}/clients/",ClientsServerResource.class);
-		testRouter.attach(base + "/users/{userid}/clients/{email}",ClientsServerResource.class);
-		testRouter.attach(base + "/users/{userid}/clients/{email}/",ClientsServerResource.class);
-		//drouter.attach(base + "/users/{email}",UserServerResource.class);
-		//drouter.attach(base + "/users/{id}/clients",UserServerResource.class);
-		//drouter.attach(base + "/users/{email}/clients",UserServerResource.class);
-		
-		// clients
-		testRouter.attach(base + "/clients",com.pmonteiro.fasttrial.resource.ClientsServerResource.class);
-		testRouter.attach(base + "/clients/",ClientsServerResource.class);
-		testRouter.attach(base + "/clients/{id}",ClientServerResource.class);
-		testRouter.attach(base + "/clients/{id}/",ClientServerResource.class);
-		testRouter.attach(base + "/clients/email/{email}",ClientServerResource.class);
-		testRouter.attach(base + "/clients/email/{email}/",ClientServerResource.class);
-		//RouteList list = new rout
-		//drouter.attach("/clients/{email}",ClientServerResource.class);
-		
-		testRouter.attachDefault(TestServerResource.class);
-		//drouter.attach("/{classname}",UsersServerResource.class);
-		//drouter.attach("/{classname}",ClientsServerResource.class);
-	}
-	
 	private void attachFastTrialRouter() {
 		
 		String base = "/ft";
 		
 		ftRouter = new Router(getContext());
+		
+		//RouteList rt = ftRouter.getRoutes();
+		//List<org.restlet.routing.Route> lista = new ArrayList<org.restlet.routing.Route>();
+		//RouteList rt2 = new RouteList(lista);
 
-		ftRouter.attach(base + "/users",UsersAccountServerResource.class);
-		ftRouter.attach(base + "/users/",UsersAccountServerResource.class);
-		ftRouter.attach(base + "/users/{id}",UserAccountServerResource.class);
+				
+		//ftRouter.setRoutes(rt2);
+		ResourceRouteList rList = new ResourceRouteList();
+
+		ResourceRoute tr = new ResourceRoute(ftRouter, "/users", UsersAccountServerResource.class,this);
+		//TemplateRoute tr = new TemplateRoute(ftRouter, "/users", this.createFinder(UsersAccountServerResource.class));
+		
+		rList.add(tr);
+		//TemplateRoute as = new TemplateRoute(ftRouter, "/users/{id}", this.createFinder(UsersAccountServerResource.class));
+
+		//rt.add(tr);
+		//rt.ad
+
+		RouteList myroutelist = new RouteList();
+		myroutelist.addAll(rList);
+		ftRouter.setRoutes(myroutelist);
+
+		//ftRouter.attach(base + "/users",UsersAccountServerResource.class);
+		//ftRouter.attach(base + "/users/",UsersAccountServerResource.class);
+		//ftRouter.attach(base + "/users/{id}",UserAccountServerResource.class);
 		
 		authenticator.setNext(authorizer);
 		authorizer.setNext(ftRouter);
@@ -278,32 +258,6 @@ public class WebApp extends Application {
 		tutorialRouter.attach(base + "",ConcreteServerResource.class);
 	}
 	
-	private void attachTodoRouter() {
-		
-		String base = "/todo";
-		
-		String url1 = "clap://com/pmonteiro/fasttrial/ui/";
-		String url2 = "clap://class/com/pmonteiro/fasttrial/ui/";
-		String url3 = "/src/com/pmonteiro/fasttrial/ui/";
-
-        Directory directory = new Directory(getContext(), url2);
-        directory.setListingAllowed(true);
-        directory.setDeeplyAccessible(true);
-        
-        LocalReference localReference = LocalReference.createClapReference(LocalReference.CLAP_THREAD, "/src/com/pmonteiro/fasttrial/ui/");
-        CompositeClassLoader compositeCL = new CompositeClassLoader();
-        compositeCL.addClassLoader(Thread.currentThread().getContextClassLoader());
-        compositeCL.addClassLoader(Router.class.getClassLoader());
-        
-        ClassLoaderDirectory dir = new ClassLoaderDirectory(getContext(),localReference,compositeCL);
-
-		todoRouter = new Router(this.getContext());
-
-        todoRouter.attach( base + "/web", directory);
-		todoRouter.attach( base + "/todos", TodosResource.class);
-		todoRouter.attach( base + "/todos/{todoId}", TodoResource.class);
-	}
-	
 	private Router createConfigRouter() {
 		return null;
 	}
@@ -312,58 +266,5 @@ public class WebApp extends Application {
 		return null;
 	}
 	
-	public class ClassLoaderDirectory extends Directory {
-
-        private ClassLoader _cl;
-
-        public ClassLoaderDirectory(Context context, Reference rootLocalReference, ClassLoader cl) {
-	        super(context, rootLocalReference);
-	        this._cl = cl;
-        }
-
-        @Override
-        public void handle(Request request, Response response) {
-	        final ClassLoader saveCL = Thread.currentThread().getContextClassLoader();
-	        Thread.currentThread().setContextClassLoader(_cl);
-	        super.handle(request, response);
-	        Thread.currentThread().setContextClassLoader(saveCL);
-        }
-	}
-	
-	
-	private static class CompositeClassLoader extends ClassLoader {
-		
-		private Vector<ClassLoader> classLoaders = new Vector<ClassLoader>();
-
-	   @Override
-	   public URL getResource(String name) {
-	           for (ClassLoader cl : classLoaders) {
-	
-	                   URL resource = cl.getResource(name);
-	                   if (resource != null)
-	                            return resource;
-	
-	           }
-	
-	           return null;
-	   	}
-
-        @Override
-   		public Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-
-	        for (ClassLoader cl : classLoaders) {
-	        	try {
-	        		return cl.loadClass(name);
-	        	} catch (ClassNotFoundException ex) {
-	
-	        	}
-	        }
-        
-        	throw new ClassNotFoundException(name);
-        }
-
-		public void addClassLoader(ClassLoader cl) {
-			classLoaders.add(cl);
-		}
-	}
+	//public hadler(Request request,Response response)
 }

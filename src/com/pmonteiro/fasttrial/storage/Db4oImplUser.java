@@ -4,11 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.adrz.hellorestlet.model.Client;
+import pt.adrz.hellorestlet.model.User;
+
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.pmonteiro.fasttrial.model.test.Client;
-import com.pmonteiro.fasttrial.model.test.User;
 
 public class Db4oImplUser extends FactoryUser {
 	
