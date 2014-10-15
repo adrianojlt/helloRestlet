@@ -40,7 +40,7 @@ public class TodosResource extends WadlServerResource {
 	        info.getResponse().getRepresentations().add(repInfo);
 	    }
 
-	@Get("json")
+	@Get("json|html")
 	public Representation list() {
 		return new JacksonRepresentation<>(content.list());
 	}
