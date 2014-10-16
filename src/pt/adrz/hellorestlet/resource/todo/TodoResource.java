@@ -22,7 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import pt.adrz.hellorestlet.dao.DataType;
-import pt.adrz.hellorestlet.dao.TodoDAOFactory;
+import pt.adrz.hellorestlet.dao.todo.TodoDAOFactory;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoResource extends WadlServerResource {

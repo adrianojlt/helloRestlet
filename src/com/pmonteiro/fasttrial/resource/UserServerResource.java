@@ -8,11 +8,11 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import pt.adrz.hellorestlet.dao.usermanager.StorageFactory;
+import pt.adrz.hellorestlet.dao.usermanager.StorageFactory.STORAGE_TYPE;
 import pt.adrz.hellorestlet.model.User;
 
 import com.pmonteiro.fasttrial.api.UserResource;
-import com.pmonteiro.fasttrial.storage.StorageFactory;
-import com.pmonteiro.fasttrial.storage.StorageFactory.STORAGE_TYPE;
 
 public class UserServerResource extends ServerResource implements UserResource {
 	

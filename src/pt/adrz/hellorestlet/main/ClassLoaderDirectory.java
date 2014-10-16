@@ -1,4 +1,4 @@
-package com.pmonteiro.server.web;
+package pt.adrz.hellorestlet.main;
 
 import org.restlet.Context;
 import org.restlet.Request;

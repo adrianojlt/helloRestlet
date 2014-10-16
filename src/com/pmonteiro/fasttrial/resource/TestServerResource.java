@@ -6,8 +6,9 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import pt.adrz.hellorestlet.dao.usermanager.FactoryUser;
+
 import com.pmonteiro.fasttrial.api.TestResource;
-import com.pmonteiro.fasttrial.storage.FactoryUser;
 import com.pmonteiro.fasttrial.storage.StorageType;
 
 public class TestServerResource extends ServerResource implements TestResource {

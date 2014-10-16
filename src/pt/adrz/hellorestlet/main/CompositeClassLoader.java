@@ -1,4 +1,4 @@
-package com.pmonteiro.server.web;
+package pt.adrz.hellorestlet.main;
 
 import java.net.URL;
 import java.util.Vector;

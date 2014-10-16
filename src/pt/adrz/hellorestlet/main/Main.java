@@ -26,6 +26,7 @@ public class Main {
     	// Applications
     	AppTodo appTodo = new AppTodo();
     	AppTest appTest = new AppTest();
+    	AppUserManager appUserManagager = new AppUserManager();
     	Application appSimp = new Application();
 
     	appSimp.setInboundRoot(new Restlet() {
@@ -37,6 +38,7 @@ public class Main {
     	
     	// attach
     	host.attach("/todo",appTodo);
+    	host.attach("/mang",appUserManagager);
     	host.attach("/test",appTest);
     	host.attach("/simp",appSimp);
     	

@@ -1,4 +1,4 @@
-package pt.adrz.hellorestlet.dao;
+package pt.adrz.hellorestlet.dao.todo;
 
 import java.util.ArrayList;
 import java.util.List;

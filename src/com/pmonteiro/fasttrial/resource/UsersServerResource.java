@@ -11,11 +11,11 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import pt.adrz.hellorestlet.dao.usermanager.FactoryUser;
 import pt.adrz.hellorestlet.model.User;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.pmonteiro.fasttrial.api.UsersResource;
-import com.pmonteiro.fasttrial.storage.FactoryUser;
 import com.pmonteiro.fasttrial.storage.StorageType;
 
 public class UsersServerResource extends ServerResource implements UsersResource {

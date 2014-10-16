@@ -1,11 +1,10 @@
-package pt.adrz.hellorestlet.dao;
+package pt.adrz.hellorestlet.dao.todo;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import java.sql.Connection;
-import com.pmonteiro.fasttrial.storage.ConnectionFactory;
 
+import pt.adrz.hellorestlet.dao.usermanager.ConnectionFactory;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodoMySqlDAO extends TodoDAOFactory {

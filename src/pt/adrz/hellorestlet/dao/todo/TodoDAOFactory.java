@@ -1,7 +1,8 @@
-package pt.adrz.hellorestlet.dao;
+package pt.adrz.hellorestlet.dao.todo;
 
 import java.util.List;
 
+import pt.adrz.hellorestlet.dao.DataType;
 import pt.adrz.hellorestlet.model.Todo;
 
 public abstract class TodoDAOFactory {

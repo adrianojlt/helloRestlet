@@ -4,11 +4,8 @@ import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
-
 import org.restlet.data.LocalReference;
 import org.restlet.data.MediaType;
-import com.pmonteiro.server.web.ClassLoaderDirectory;
-import com.pmonteiro.server.web.CompositeClassLoader;
 
 import pt.adrz.hellorestlet.resource.todo.TodoResource;
 import pt.adrz.hellorestlet.resource.todo.TodosResource;
@@ -19,7 +16,7 @@ public class AppTodo extends Application {
 	@Override
 	public Restlet createInboundRoot() {
 		
-		String resources = "clap://class/static/";
+		String resources = "clap://class/static/todo/";
 
 		Directory directory = new Directory(getContext(), resources);
 	    directory.setListingAllowed(true);

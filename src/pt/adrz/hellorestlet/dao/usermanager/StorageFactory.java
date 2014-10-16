@@ -1,4 +1,4 @@
-package com.pmonteiro.fasttrial.storage;
+package pt.adrz.hellorestlet.dao.usermanager;
 
 import java.sql.SQLException;
 import java.util.List;

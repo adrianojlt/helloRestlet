@@ -16,7 +16,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import pt.adrz.hellorestlet.dao.DataType;
-import pt.adrz.hellorestlet.dao.TodoDAOFactory;
+import pt.adrz.hellorestlet.dao.todo.TodoDAOFactory;
 import pt.adrz.hellorestlet.model.Todo;
 
 public class TodosResource extends WadlServerResource {

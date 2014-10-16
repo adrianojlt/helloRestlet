@@ -1,32 +1,30 @@
 package com.pmonteiro.fasttrial.storage;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import pt.adrz.hellorestlet.model.Client;
-import pt.adrz.hellorestlet.model.User;
+import com.pmonteiro.fasttrial.model.accounts.UserAccount;
+import com.pmonteiro.fasttrial.storage.StorageType;
 
 public abstract class FactoryUser {
 	
-	public abstract List<User> list();
-	public abstract User get(Long id);
-	public abstract User get(User user);
-	public abstract User get(String email);
-	public abstract boolean exists(User user);
-	public abstract boolean create(User user) throws SQLException, Exception;
-	public abstract void update(User user);
-	public abstract boolean delete(Long id);
-	public abstract List<Client> listClients(Long userId);
+	public abstract List<UserAccount> listAll();
+	public abstract UserAccount get(UserAccount user);
+	public abstract boolean exists(UserAccount user);
+	public abstract boolean create(UserAccount user);
+	public abstract void update(UserAccount user);
+	public abstract boolean delete(UserAccount id);
+
 	public abstract void tmp();
+	public abstract UserAccount getTmpUser();
 	
 	public static FactoryUser getUserStorage(StorageType whichFactory) {
 
 		switch (whichFactory) {
 			case STATIC: 				return null;
-			case CACHE: 				return null;
-			case MYSQL_JDBC: 			return new MySqlImplUser();
+			case CACHE: 				return new CacheImplUser();
+			case MYSQL_JDBC: 			return null;
 			case MYSQL_SPRING_JDBC: 	return null;
-			case DB4O: 					return new Db4oImplUser();
+			case DB4O: 					return null;
 			default: return null;
 		}	
 	}

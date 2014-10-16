@@ -6,9 +6,9 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 
+import pt.adrz.hellorestlet.dao.usermanager.FactoryClient;
 import pt.adrz.hellorestlet.model.Client;
 
-import com.pmonteiro.fasttrial.storage.FactoryClient;
 import com.pmonteiro.fasttrial.storage.StorageType;
 import com.pmonteiro.server.web.GenericResource;
 

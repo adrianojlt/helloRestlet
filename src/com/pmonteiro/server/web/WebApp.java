@@ -163,7 +163,8 @@ public class WebApp extends Application {
 		authorizer.setNext(ftRouter);
 		//ftRouter.attachDefault(testRouter);
 		
-		return tutorialRouter;
+		//return tutorialRouter;
+		return ftRouter;
 	}
 
 
@@ -214,38 +215,32 @@ public class WebApp extends Application {
 	
 	private void attachFastTrialRouter() {
 		
-		String base = "/ft";
-		
 		ftRouter = new Router(getContext());
-		
-		//RouteList rt = ftRouter.getRoutes();
-		//List<org.restlet.routing.Route> lista = new ArrayList<org.restlet.routing.Route>();
-		//RouteList rt2 = new RouteList(lista);
 
-				
-		//ftRouter.setRoutes(rt2);
+		String resources = "clap://class/static/fasttrial/";
+		Directory directory = new Directory(getContext(), resources);
+	    directory.setListingAllowed(true);
+	    directory.setDeeplyAccessible(true);
+	    
+		/*
 		ResourceRouteList rList = new ResourceRouteList();
-
 		ResourceRoute tr = new ResourceRoute(ftRouter, "/users", UsersAccountServerResource.class,this);
 		//TemplateRoute tr = new TemplateRoute(ftRouter, "/users", this.createFinder(UsersAccountServerResource.class));
-		
 		rList.add(tr);
-		//TemplateRoute as = new TemplateRoute(ftRouter, "/users/{id}", this.createFinder(UsersAccountServerResource.class));
-
-		//rt.add(tr);
-		//rt.ad
-
 		RouteList myroutelist = new RouteList();
 		myroutelist.addAll(rList);
 		ftRouter.setRoutes(myroutelist);
+		*/
 
-		//ftRouter.attach(base + "/users",UsersAccountServerResource.class);
-		//ftRouter.attach(base + "/users/",UsersAccountServerResource.class);
-		//ftRouter.attach(base + "/users/{id}",UserAccountServerResource.class);
+		ftRouter.attach("/web", directory);
+	    
+		ftRouter.attach("/users", UsersAccountServerResource.class);
+		ftRouter.attach("/users/", UsersAccountServerResource.class);
+		ftRouter.attach("/user/{email}", UserAccountServerResource.class);
+		ftRouter.attach("/user/{email}/", UserAccountServerResource.class);
 		
 		authenticator.setNext(authorizer);
 		authorizer.setNext(ftRouter);
-		//return authenticator;
 	}
 	
 	private void attachTutorialRouter() {
