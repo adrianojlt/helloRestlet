@@ -21,7 +21,7 @@ public abstract class FactoryUser {
 
 		switch (whichFactory) {
 			case STATIC: 				return null;
-			case CACHE: 				return new CacheImplUser();
+			case CACHE: 				return new UserCacheImpl();
 			case MYSQL_JDBC: 			return null;
 			case MYSQL_SPRING_JDBC: 	return null;
 			case DB4O: 					return null;

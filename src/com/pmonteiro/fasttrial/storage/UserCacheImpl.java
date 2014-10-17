@@ -6,7 +6,7 @@ import com.jalapeno.ApplicationContext;
 import com.jalapeno.ObjectManager;
 import com.pmonteiro.fasttrial.model.accounts.UserAccount;
 
-public class CacheImplUser extends FactoryUser {
+public class UserCacheImpl extends FactoryUser {
 	
 	public static ObjectManager objManager;
 	
@@ -14,7 +14,7 @@ public class CacheImplUser extends FactoryUser {
     public static final String USER = "_SYSTEM";
     public static final String PWD = "pmonteiro";
     
-    public CacheImplUser() {
+    public UserCacheImpl() {
     	try {
     		objManager = ApplicationContext.createObjectManager(URL, USER, PWD);
     	}

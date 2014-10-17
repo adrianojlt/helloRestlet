@@ -25,13 +25,13 @@ public class WebMain {
     	VirtualHost host = c.getDefaultHost();
 
     	WebApp wp = new WebApp();
+    	WebSys sys = new WebSys();
     	
     	host.attach("/v1", wp);
+    	host.attach("/sys", sys);
 
     	host.attachDefault(wp);
-
     	c.setDefaultHost(host);
-    	
     	c.start();
     }
 }
