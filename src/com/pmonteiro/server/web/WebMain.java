@@ -1,11 +1,6 @@
 package com.pmonteiro.server.web;
 
-import org.restlet.Application;
 import org.restlet.Component;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.Restlet;
-import org.restlet.data.MediaType;
 import org.restlet.data.Protocol;
 import org.restlet.routing.VirtualHost;
 

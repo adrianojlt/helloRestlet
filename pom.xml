@@ -103,15 +103,8 @@
 	<repositories>
 	
 	    <repository>
-	        <id>lib</id>
-			<name>lib</name>
-			 <releases>
-                    <enabled>true</enabled>
-                    <checksumPolicy>ignore</checksumPolicy>
-                </releases>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
+	        <id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
 			<url>http://maven.restlet.org</url>
 	  	</repository>
 	  	
