@@ -56,7 +56,6 @@
       </plugin>
       -->
 
-        <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -76,7 +75,6 @@
             </execution>
         </executions>
       </plugin>
-      -->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -104,11 +102,24 @@
 	
 	<repositories>
 	
-    <repository>
-      <id>maven-restlet</id>
-      <name>Public online Restlet repository</name>
-      <url>http://maven.restlet.org</url>
-  	</repository>
+	    <repository>
+	        <id>lib</id>
+			<name>lib</name>
+			 <releases>
+                    <enabled>true</enabled>
+                    <checksumPolicy>ignore</checksumPolicy>
+                </releases>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+			<url>http://maven.restlet.org</url>
+	  	</repository>
+	  	
+	  	<repository>
+			<id>in-project</id>
+			<name>In Project Repo</name>
+			<url>file://${project.basedir}/libs</url>
+	    </repository>
 		
 	</repositories>
 
@@ -199,6 +210,35 @@
         <version>6.1.501</version>
      </dependency>
      
+    <!-- Caché database libs -->
+    <dependency>
+	    <groupId>intersys</groupId>
+	    <artifactId>jalapeno</artifactId>
+	    <version>1.0</version>
+	    <scope>system</scope>
+		<systemPath>${basedir}/libs/jalapeno-1.0.jar</systemPath>
+    </dependency>
+    <dependency>
+        <groupId>intersys</groupId>
+        <artifactId>cachedb</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/libs/cachedb-1.0.jar</systemPath>
+    </dependency>
+     <dependency>
+        <groupId>intersys</groupId>
+        <artifactId>cachejdbc</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/libs/cachejdbc-1.0.jar</systemPath>
+    </dependency>
+	<dependency>
+	    <groupId>intersys</groupId>
+	    <artifactId>asm</artifactId>
+	    <version>3.1</version>
+	    <scope>system</scope>
+	    <systemPath>${basedir}/libs/asm-3.1.jar</systemPath>
+	</dependency>
      
 </dependencies>
 
